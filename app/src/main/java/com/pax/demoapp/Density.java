@@ -14,7 +14,12 @@ import android.util.DisplayMetrics;
 
 public class Density {
     private static float appDensity;
+
     private static float appScaledDensity;
+
+    private Density() {
+        throw new IllegalArgumentException();
+    }
 
     /**
      * 此方法在Application的onCreate方法中调用    Density.setDensity(this);
