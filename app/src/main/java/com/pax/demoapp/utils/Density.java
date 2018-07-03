@@ -1,4 +1,4 @@
-package com.pax.demoapp;
+package com.pax.demoapp.utils;
 
 import android.app.Activity;
 import android.app.Application;
