@@ -1,4 +1,4 @@
-package com.pax.demoapp.dialog;
+package com.pax.demoapp.view.dialog;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

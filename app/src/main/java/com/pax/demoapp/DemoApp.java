@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.os.Process;
 import android.util.Log;
 
+import com.blankj.utilcode.util.Utils;
+import com.pax.demoapp.ui.activity.IActivity;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,6 +33,12 @@ public class DemoApp extends Application {
                 Log.d(TAG, "onActivityCreated: " + activity.getLocalClassName());
                 Log.d(TAG, "Pid: " + Process.myPid());
                 activityLinkedList.add(activity);
+                if (activity instanceof IActivity) {
+                    IActivity iActivity = (IActivity) activity;
+                    activity.setContentView(iActivity.getLayoutId());
+                    iActivity.initData();
+                    iActivity.initView();
+                }
             }
 
             @Override
@@ -63,6 +72,8 @@ public class DemoApp extends Application {
                 activityLinkedList.remove(activity);
             }
         });
+
+        Utils.init(this);
     }
 
 

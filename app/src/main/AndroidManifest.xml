@@ -17,7 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.PagerActivity"></activity>
+        <activity android:name=".ui.activity.PagerActivity" />
+        <activity android:name=".ui.activity.EditTextActivity"></activity>
     </application>
 
 </manifest>

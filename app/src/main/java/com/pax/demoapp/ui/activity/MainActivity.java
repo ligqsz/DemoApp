@@ -1,47 +1,50 @@
 package com.pax.demoapp.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.KeyEvent;
-import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.pax.demoapp.R;
-import com.pax.demoapp.dialog.CustomDialog;
-import com.pax.demoapp.dialog.DialogUtils;
+import com.pax.demoapp.config.MenuConfig;
 import com.pax.demoapp.ui.adapter.MenuAdapter;
 import com.pax.demoapp.utils.ActivityUtils;
 import com.pax.demoapp.utils.Density;
+import com.pax.demoapp.view.dialog.CustomDialog;
+import com.pax.demoapp.view.dialog.DialogUtils;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * @author ligq
  */
-public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuAdapterListener {
+public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuAdapterListener, IActivity {
+
+    private List<String> dataList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Density.setDensity(getApplication(), this);
-        initView();
+    public int getLayoutId() {
+        return R.layout.activity_main;
     }
 
-    private void initView() {
-        List<String> dataList = new LinkedList<>();
-        dataList.add("弹出按钮框");
-        dataList.add("弹出ProgressBar");
-        dataList.add("跳转pager界面");
+    @Override
+    public void initData() {
+        Density.setDensity(getApplication(), this);
+        dataList = new LinkedList<>();
+        dataList.addAll(Arrays.asList(MenuConfig.MENU_MAIN));
+    }
+
+    @Override
+    public void initView() {
         RecyclerView rvMenu = findViewById(R.id.rv_menu);
         rvMenu.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         MenuAdapter adapter = new MenuAdapter(this, dataList);
         adapter.setOnItemClick(this);
         rvMenu.setAdapter(adapter);
-
     }
 
     /**
@@ -74,12 +77,12 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuA
                 DialogUtils.showConfirmDialog(MainActivity.this, new CustomDialog.DialogButtonListener() {
                     @Override
                     public void onOk() {
-                        Toast.makeText(MainActivity.this, "ok", Toast.LENGTH_SHORT).show();
+                        ToastUtils.showShort("ok");
                     }
 
                     @Override
                     public void onCancel() {
-                        Toast.makeText(MainActivity.this, "cancel", Toast.LENGTH_SHORT).show();
+                        ToastUtils.showShort("cancel");
                     }
                 });
                 break;
@@ -88,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuA
                 break;
             case 2:
                 startActivity(new Intent(this, PagerActivity.class));
+                break;
+            case 3:
+                startActivity(new Intent(this, EditTextActivity.class));
                 break;
             default:
                 break;

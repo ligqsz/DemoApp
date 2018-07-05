@@ -1,4 +1,4 @@
-package com.pax.demoapp.dialog;
+package com.pax.demoapp.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

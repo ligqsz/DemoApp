@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.pax.demoapp.R;
+import com.pax.demoapp.ui.adapter.MyFragmentStateAdapter;
 import com.pax.demoapp.ui.fragment.FragmentView;
 
 import java.util.ArrayList;
@@ -20,22 +21,14 @@ import java.util.List;
 /**
  * @author ligq
  */
-public class PagerActivity extends AppCompatActivity {
+public class PagerActivity extends AppCompatActivity implements IActivity {
     private ViewPager pager;
     public static final String TITLE = "Title";
     public static final String PAGER_NUM = "pagerNum";
     private TabLayout tabLayout;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pager);
-        pager = findViewById(R.id.vp);
-        tabLayout = findViewById(R.id.tabLayout);
-        initData();
-        initListeners();
-    }
+    private List<Fragment> testList;
 
-    private void initListeners() {
+    private void initListener() {
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setTabTextColors(0, ContextCompat.getColor
                 (this, R.color.red));
@@ -64,8 +57,14 @@ public class PagerActivity extends AppCompatActivity {
         });
     }
 
-    private void initData() {
-        List<Fragment> list = new ArrayList<>();
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_pager;
+    }
+
+    @Override
+    public void initData() {
+        testList = new ArrayList<>();
 
         Bundle bundle1 = new Bundle();
         bundle1.putString(TITLE, "第一个Fragment");
@@ -87,17 +86,23 @@ public class PagerActivity extends AppCompatActivity {
         bundle4.putInt(PAGER_NUM, 4);
         Fragment fg4 = FragmentView.newInstance(bundle4);
 
-        list.add(fg1);
-        list.add(fg2);
-        list.add(fg3);
-        list.add(fg4);
-        pager.setAdapter(new MyFragmentStateAdapter(getSupportFragmentManager(), list));
+        testList.add(fg1);
+        testList.add(fg2);
+        testList.add(fg3);
+        testList.add(fg4);
+    }
 
+    @Override
+    public void initView() {
+        pager = findViewById(R.id.vp);
+        tabLayout = findViewById(R.id.tabLayout);
+        pager.setAdapter(new MyFragmentStateAdapter(getSupportFragmentManager(), testList));
         //添加标签
         tabLayout.addTab(tabLayout.newTab().setCustomView(getTextView("tab1", R.color.red, 16)));
         tabLayout.addTab(tabLayout.newTab().setCustomView(getTextView("tab2", R.color.colorPrimary, 14)));
         tabLayout.addTab(tabLayout.newTab().setCustomView(getTextView("tab3", R.color.colorPrimary, 14)));
         tabLayout.addTab(tabLayout.newTab().setCustomView(getTextView("tab4", R.color.colorPrimary, 14)));
+        initListener();
     }
 
     private TextView getTextView(String tab, int color, float size) {
