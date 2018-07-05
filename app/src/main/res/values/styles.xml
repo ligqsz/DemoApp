@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--dialog样式-->
     <style name="dialog_style" parent="@android:style/Theme.Dialog">
         <!--是否浮在界面上-->
         <item name="android:windowIsFloating">true</item>
@@ -21,4 +22,6 @@
         <!--背景是否模糊显示(黑色)-->
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
+    <style name="Dialog_Progress" parent="Base.Widget.AppCompat.ProgressBar"/>
 </resources>

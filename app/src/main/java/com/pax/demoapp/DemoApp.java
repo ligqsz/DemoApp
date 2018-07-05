@@ -1,0 +1,84 @@
+package com.pax.demoapp;
+
+import android.app.Activity;
+import android.app.Application;
+import android.os.Bundle;
+import android.os.Process;
+import android.util.Log;
+
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * @author ligq
+ * @date 2018/7/5
+ */
+
+public class DemoApp extends Application {
+    public static final String TAG = DemoApp.class.getSimpleName();
+    private static DemoApp app;
+    private List<Activity> activityLinkedList;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        app = this;
+        activityLinkedList = new LinkedList<>();
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                Log.d(TAG, "onActivityCreated: " + activity.getLocalClassName());
+                Log.d(TAG, "Pid: " + Process.myPid());
+                activityLinkedList.add(activity);
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+                Log.d(TAG, "onActivityStarted: " + activity.getLocalClassName());
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                //do nothing
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+                //do nothing
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+                Log.d(TAG, "onActivityStopped: " + activity.getLocalClassName());
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                //do nothing
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                Log.d(TAG, "onActivityDestroyed: " + activity.getLocalClassName());
+                activityLinkedList.remove(activity);
+            }
+        });
+    }
+
+
+    public void showList() {
+        for (Activity activity : activityLinkedList) {
+            Log.d(TAG, "showList: " + activity.getLocalClassName());
+        }
+    }
+
+    public void exitAppList() {
+        for (Activity activity : activityLinkedList) {
+            activity.finish();
+        }
+    }
+
+    public static DemoApp getApp() {
+        return app;
+    }
+}

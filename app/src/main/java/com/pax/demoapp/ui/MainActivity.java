@@ -1,5 +1,6 @@
 package com.pax.demoapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -33,5 +34,19 @@ public class MainActivity extends AppCompatActivity {
         }));
 
         findViewById(R.id.alert_progress).setOnClickListener(view -> DialogUtils.showProgressDialog(MainActivity.this));
+    }
+
+    /**
+     * ActivityUtils方式三调用,必须要重写onNewIntent
+     */
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent != null) {
+            boolean isExitApp = intent.getBooleanExtra("exit", false);
+            if (isExitApp) {
+                this.finish();
+            }
+        }
     }
 }

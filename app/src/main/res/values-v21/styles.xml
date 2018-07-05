@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Dialog_Progress" parent="Base.Widget.AppCompat.ProgressBar">
+        <!--定义progressBar的颜色-->
+        <item name="android:indeterminateTint">@color/colorAccent</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+    </style>
+</resources>
