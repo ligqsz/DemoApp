@@ -1,1 +1,1 @@
-include ':app', ':pager_demo'
+include ':app'

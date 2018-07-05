@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 
 import com.pax.demoapp.DemoApp;
-import com.pax.demoapp.ui.MainActivity;
+import com.pax.demoapp.ui.activity.MainActivity;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class ActivityUtils {
             appTask.finishAndRemoveTask();
         }
 //        <p>appTaskList.get(0).finishAndRemoveTask();<p>
-        System.exit(0);
+//         <p>System.exit(0);<p>
     }
 
     /**

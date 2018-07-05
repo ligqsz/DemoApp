@@ -23,5 +23,6 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="Dialog_Progress" parent="Base.Widget.AppCompat.ProgressBar"/>
+    <style name="Dialog_Progress" parent="Base.Widget.AppCompat.ProgressBar" />
+
 </resources>

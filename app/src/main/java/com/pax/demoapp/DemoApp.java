@@ -39,12 +39,12 @@ public class DemoApp extends Application {
 
             @Override
             public void onActivityResumed(Activity activity) {
-                //do nothing
+                Log.d(TAG, "onActivityResumed: " + activity.getLocalClassName());
             }
 
             @Override
             public void onActivityPaused(Activity activity) {
-                //do nothing
+                Log.d(TAG, "onActivityPaused: " + activity.getLocalClassName());
             }
 
             @Override
@@ -54,7 +54,7 @@ public class DemoApp extends Application {
 
             @Override
             public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-                //do nothing
+                Log.d(TAG, "onActivitySaveInstanceState: " + activity.getLocalClassName());
             }
 
             @Override

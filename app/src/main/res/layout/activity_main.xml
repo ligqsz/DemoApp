@@ -5,41 +5,11 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.pax.demoapp.ui.MainActivity">
+    tools:context="com.pax.demoapp.ui.activity.MainActivity">
 
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Hello World!" />-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="370dp"-->
-    <!--android:layout_marginTop="20dp"-->
-    <!--android:gravity="center"-->
-    <!--android:text="dkalfalealeifaleffjiadk\nlsafjoaejflsfdakfl"-->
-    <!--android:textColor="@color/colorPrimary"-->
-    <!--android:textSize="20sp" />-->
-
-    <!--<TextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="80dp"-->
-    <!--android:layout_marginTop="20dp"-->
-    <!--android:background="#ff0000"-->
-    <!--android:gravity="center"-->
-    <!--android:text="dkalfalealeifaleffjiadk\nlsafjoaejflsfdakfl"-->
-    <!--android:textColor="@android:color/white"-->
-    <!--android:textSize="20sp" />-->
-
-    <Button
-        android:id="@+id/alert_confirm"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="alert confirm dialog" />
+        android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/alert_progress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="alert progress dialog" />
 </LinearLayout>

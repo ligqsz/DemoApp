@@ -1,4 +1,4 @@
-package com.pax.pager;
+package com.pax.demoapp.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.pax.demoapp.R;
+import com.pax.demoapp.ui.activity.PagerActivity;
 
 /**
  * @author ligq
@@ -27,7 +30,7 @@ public class FragmentView extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment, null);
         TextView tv = view.findViewById(R.id.tv);
-        int page = arg.getInt(MainActivity.PAGER_NUM);
+        int page = arg.getInt(PagerActivity.PAGER_NUM);
 
         if (page == 1) {
             view.setBackgroundResource(R.color.colorAccent);
@@ -39,7 +42,7 @@ public class FragmentView extends Fragment {
             view.setBackgroundResource(R.color.colorPrimary);
         }
 
-        tv.setText(arg.getString(MainActivity.TITLE));
+        tv.setText(arg.getString(PagerActivity.TITLE));
         return view;
     }
 

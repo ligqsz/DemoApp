@@ -1,4 +1,4 @@
-package com.pax.pager;
+package com.pax.demoapp.ui.activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

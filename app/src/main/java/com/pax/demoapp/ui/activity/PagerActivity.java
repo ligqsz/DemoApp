@@ -1,4 +1,4 @@
-package com.pax.pager;
+package com.pax.demoapp.ui.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -11,23 +11,24 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pax.demoapp.R;
+import com.pax.demoapp.ui.fragment.FragmentView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author ligq
  */
-public class MainActivity extends AppCompatActivity {
-
+public class PagerActivity extends AppCompatActivity {
     private ViewPager pager;
     public static final String TITLE = "Title";
     public static final String PAGER_NUM = "pagerNum";
     private TabLayout tabLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pager);
         pager = findViewById(R.id.vp);
         tabLayout = findViewById(R.id.tabLayout);
         initData();
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private void initListeners() {
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setTabTextColors(0, ContextCompat.getColor
-                (MainActivity.this, R.color.red));
+                (this, R.color.red));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
