@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.PagerActivity" />
-        <activity android:name=".ui.activity.EditTextActivity"></activity>
+        <activity android:name=".ui.activity.EditTextActivity" />
+        <activity android:name=".ui.activity.TestActivity"></activity>
     </application>
 
 </manifest>

@@ -2,15 +2,21 @@ package com.pax.demoapp;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Process;
 import android.util.Log;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
+import com.pax.demoapp.ui.activity.EditTextActivity;
 import com.pax.demoapp.ui.activity.IActivity;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author ligq
@@ -21,11 +27,18 @@ public class DemoApp extends Application {
     public static final String TAG = DemoApp.class.getSimpleName();
     private static DemoApp app;
     private List<Activity> activityLinkedList;
+    private ScheduledExecutorService executorService;
 
     @Override
     public void onCreate() {
         super.onCreate();
         app = this;
+        executorService = new ScheduledThreadPoolExecutor(1, r -> {
+            Thread thread = new Thread(r, "ScheduledThreadPoolExecutor Task");
+            thread.setPriority(Thread.MIN_PRIORITY);
+            thread.setDaemon(true);
+            return thread;
+        });
         activityLinkedList = new LinkedList<>();
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
@@ -76,6 +89,16 @@ public class DemoApp extends Application {
         Utils.init(this);
     }
 
+    public void startTask() {
+        executorService.scheduleAtFixedRate(() -> {
+            LogUtils.d("TASK:jump main");
+            if (activityLinkedList.get(activityLinkedList.size() - 1) instanceof EditTextActivity) {
+                return;
+            }
+            jump(EditTextActivity.class);
+        }, 3, 3, TimeUnit.SECONDS);
+    }
+
 
     public void showList() {
         for (Activity activity : activityLinkedList) {
@@ -91,5 +114,11 @@ public class DemoApp extends Application {
 
     public static DemoApp getApp() {
         return app;
+    }
+
+    public void jump(Class clazz) {
+        Intent intent = new Intent(this, clazz);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
