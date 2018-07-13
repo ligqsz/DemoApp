@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 
 import com.pax.demoapp.DemoApp;
 import com.pax.demoapp.ui.activity.MainActivity;
@@ -20,7 +21,6 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class ActivityUtils {
-
     private ActivityUtils() {
         throw new IllegalArgumentException();
     }
@@ -65,5 +65,18 @@ public class ActivityUtils {
         intent.putExtra("exit", true);
         DemoApp.getApp().startActivity(intent);
         System.exit(0);
+    }
+
+    public static void jumpActivity(Bundle bundle, Class clazz) {
+        Intent intent = new Intent(DemoApp.getApp(), clazz);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtras(bundle);
+        DemoApp.getApp().startActivity(intent);
+    }
+
+    public static void jumpActivity(Class clazz) {
+        Intent intent = new Intent(DemoApp.getApp(), clazz);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        DemoApp.getApp().startActivity(intent);
     }
 }

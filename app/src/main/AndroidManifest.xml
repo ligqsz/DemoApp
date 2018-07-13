@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pax.demoapp">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".DemoApp"
         android:allowBackup="true"
@@ -19,7 +21,9 @@
         </activity>
         <activity android:name=".ui.activity.PagerActivity" />
         <activity android:name=".ui.activity.EditTextActivity" />
-        <activity android:name=".ui.activity.TestActivity"></activity>
+        <activity android:name=".ui.activity.TestActivity" />
+        <activity android:name=".ui.activity.OrmLiteActivity" />
+        <activity android:name=".ui.activity.OrmResultActivity"></activity>
     </application>
 
 </manifest>
