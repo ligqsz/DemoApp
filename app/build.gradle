@@ -25,7 +25,7 @@ android {
 }
 //greenDao生成数据库版本
 greendao {
-    schemaVersion 5
+    schemaVersion 9
 }
 
 dependencies {

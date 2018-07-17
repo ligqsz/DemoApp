@@ -41,7 +41,7 @@ public class DaoManager {
      *
      * @return StudentDao
      */
-    static StudentDao getStudentDao() {
+    public static StudentDao getStudentDao() {
         return daoSession.getStudentDao();
     }
 

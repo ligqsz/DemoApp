@@ -9,15 +9,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.pax.demoapp.R;
-import com.pax.demoapp.db.orm.bean.Student;
 import com.pax.demoapp.config.IntentKeys;
+import com.pax.demoapp.db.orm.bean.Student;
 import com.pax.demoapp.db.orm.dao.StudentDao;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import static com.pax.demoapp.utils.OtherUtils.getRandomNum;
+import static com.pax.demoapp.utils.OtherUtils.getRandomWord;
 
 /**
  * @author ligq
@@ -25,7 +27,6 @@ import java.util.Random;
 public class OrmResultActivity extends AppCompatActivity implements IActivity {
     private List<Student> students;
     private String result = "";
-    private static final String[] WORDS = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",};
 
     @Override
     public int getLayoutId() {
@@ -122,20 +123,5 @@ public class OrmResultActivity extends AppCompatActivity implements IActivity {
         return student;
     }
 
-    private int getRandomNum(int baseNum) {
-        return new Random().nextInt(10) + baseNum;
-    }
 
-    public String getRandomNum() {
-        String num = String.valueOf(new Random().nextInt(100));
-        StudentDao dao = StudentDao.getInstance();
-        while (!dao.findListByNum(num).isEmpty()) {
-            num = String.valueOf(new Random().nextInt(100));
-        }
-        return num;
-    }
-
-    private String getRandomWord() {
-        return WORDS[new Random().nextInt(WORDS.length)];
-    }
 }

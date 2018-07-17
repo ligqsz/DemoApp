@@ -7,12 +7,15 @@ package com.pax.demoapp.config;
 
 public class MenuConfig {
     public static final String[] MENU_MAIN = {"弹出按钮框", "弹出ProgressBar", "跳转pager界面"
-            , "测试改变软键盘Enter键", "testActivity", "OrmLite Demo"};
+            , "测试改变软键盘Enter键", "testActivity", "OrmLite Demo", "Green Dao Demo"};
 
     public static final String[] MENU_EDIT = {"actionDone", "actionGo", "actionNext"
             , "actionNone", "actionSearch", "actionSend"};
     public static final String[] MENU_ORM = {"insert", "delete(id)", "deleteAll"
             , "update", "query(id)", "query(All)", "query(reverse,limit)", "count(province,age)"};
+
+    public static final String[] MENU_GREEN_DAO = {"insert", "deleteAll"
+            , "update", "query(All)"};
     public static final int DEFAULT_HEIGHT = 120;
     public static final String DB_NAME = "data";
     public static final boolean ENCRYPTED = false;

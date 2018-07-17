@@ -101,7 +101,9 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuA
             case 5:
                 startActivity(new Intent(this, OrmLiteActivity.class));
                 break;
-
+            case 6:
+                ActivityUtils.jumpActivity(GreenDaoActivity.class);
+                break;
             default:
                 break;
         }

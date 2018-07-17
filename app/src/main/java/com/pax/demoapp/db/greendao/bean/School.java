@@ -13,11 +13,11 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity(nameInDb = "SCHOOL_TABLE")
 public class School {
     @Id
-    private long id;
+    private Long id;
     private String address;
     private String name;
-    @Generated(hash = 683418416)
-    public School(long id, String address, String name) {
+    @Generated(hash = 1009682238)
+    public School(Long id, String address, String name) {
         this.id = id;
         this.address = address;
         this.name = name;
@@ -25,10 +25,10 @@ public class School {
     @Generated(hash = 1579966795)
     public School() {
     }
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getAddress() {

@@ -23,7 +23,8 @@
         <activity android:name=".ui.activity.EditTextActivity" />
         <activity android:name=".ui.activity.TestActivity" />
         <activity android:name=".ui.activity.OrmLiteActivity" />
-        <activity android:name=".ui.activity.OrmResultActivity"></activity>
+        <activity android:name=".ui.activity.OrmResultActivity" />
+        <activity android:name=".ui.activity.GreenDaoActivity" />
     </application>
 
 </manifest>
