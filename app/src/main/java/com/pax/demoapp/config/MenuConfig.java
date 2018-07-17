@@ -14,6 +14,8 @@ public class MenuConfig {
     public static final String[] MENU_ORM = {"insert", "delete(id)", "deleteAll"
             , "update", "query(id)", "query(All)", "query(reverse,limit)", "count(province,age)"};
     public static final int DEFAULT_HEIGHT = 120;
+    public static final String DB_NAME = "data";
+    public static final boolean ENCRYPTED = false;
 
     private MenuConfig() {
         throw new IllegalArgumentException();

@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.pax.demoapp.R;
-import com.pax.demoapp.bean.Student;
+import com.pax.demoapp.db.orm.bean.Student;
 import com.pax.demoapp.config.IntentKeys;
 import com.pax.demoapp.db.orm.dao.StudentDao;
 import com.zhy.adapter.recyclerview.CommonAdapter;

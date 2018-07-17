@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
-
+//greenDao插件使用
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -22,6 +23,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+//greenDao生成数据库版本
+greendao {
+    schemaVersion 5
+}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -39,4 +44,13 @@ dependencies {
 
     implementation 'com.j256.ormlite:ormlite-android:5.0'
     implementation 'com.j256.ormlite:ormlite-core:5.0'
+
+    //LogUtils框架:https://github.com/pengwei1024/LogUtils
+    implementation 'com.apkfuns.logutils:library:1.6.0'
+    //fastJson Android 版本:https://github.com/alibaba/fastjson/wiki/Android%E7%89%88%E6%9C%AC
+    implementation 'com.alibaba:fastjson:1.1.54.android'
+    //greenDao依赖
+    implementation 'org.greenrobot:greendao:3.2.2'
 }
+//greenDao相关设置
+uploadArchives.enabled = false

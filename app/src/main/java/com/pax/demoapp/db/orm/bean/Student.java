@@ -1,4 +1,4 @@
-package com.pax.demoapp.bean;
+package com.pax.demoapp.db.orm.bean;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.j256.ormlite.field.DatabaseField;

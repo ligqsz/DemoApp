@@ -3,7 +3,7 @@ package com.pax.demoapp.db.orm.dao;
 import com.blankj.utilcode.util.LogUtils;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.table.DatabaseTable;
-import com.pax.demoapp.bean.Student;
+import com.pax.demoapp.db.orm.bean.Student;
 import com.pax.demoapp.db.orm.base.BaseOrmDao;
 
 import java.sql.SQLException;

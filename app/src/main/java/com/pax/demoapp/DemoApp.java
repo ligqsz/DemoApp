@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
+import com.pax.demoapp.config.MenuConfig;
+import com.pax.demoapp.db.greendao.manager.DaoManager;
 import com.pax.demoapp.ui.activity.EditTextActivity;
 import com.pax.demoapp.ui.activity.IActivity;
 
@@ -33,12 +35,26 @@ public class DemoApp extends Application {
     public void onCreate() {
         super.onCreate();
         app = this;
+        init();
+    }
+
+    private void init() {
+        initExecutorService();
+        initLifeCycleCallBack();
+        DaoManager.initDb(this, MenuConfig.DB_NAME);
+        Utils.init(this);
+    }
+
+    private void initExecutorService() {
         executorService = new ScheduledThreadPoolExecutor(1, r -> {
             Thread thread = new Thread(r, "ScheduledThreadPoolExecutor Task");
             thread.setPriority(Thread.MIN_PRIORITY);
             thread.setDaemon(true);
             return thread;
         });
+    }
+
+    private void initLifeCycleCallBack() {
         activityLinkedList = new LinkedList<>();
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
@@ -85,8 +101,6 @@ public class DemoApp extends Application {
                 activityLinkedList.remove(activity);
             }
         });
-
-        Utils.init(this);
     }
 
     public void startTask() {
