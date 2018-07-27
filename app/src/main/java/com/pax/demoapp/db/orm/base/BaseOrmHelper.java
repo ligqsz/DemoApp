@@ -3,13 +3,13 @@ package com.pax.demoapp.db.orm.base;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.pax.demoapp.db.orm.bean.Student;
 import com.pax.demoapp.db.exception.DbRuntimeException;
+import com.pax.demoapp.db.orm.bean.Student;
 import com.pax.demoapp.db.orm.upgrade.DbUpgrader;
+import com.pax.demoapp.utils.LogUtils;
 
 import java.sql.SQLException;
 

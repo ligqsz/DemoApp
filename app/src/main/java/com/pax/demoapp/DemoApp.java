@@ -7,12 +7,11 @@ import android.os.Bundle;
 import android.os.Process;
 import android.util.Log;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.Utils;
 import com.pax.demoapp.config.MenuConfig;
 import com.pax.demoapp.db.greendao.manager.DaoManager;
 import com.pax.demoapp.ui.activity.EditTextActivity;
 import com.pax.demoapp.ui.activity.IActivity;
+import com.pax.demoapp.utils.LogUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -42,7 +41,6 @@ public class DemoApp extends Application {
         initExecutorService();
         initLifeCycleCallBack();
         DaoManager.initDb(this, MenuConfig.DB_NAME);
-        Utils.init(this);
     }
 
     private void initExecutorService() {

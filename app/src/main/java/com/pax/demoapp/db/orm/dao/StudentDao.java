@@ -1,10 +1,10 @@
 package com.pax.demoapp.db.orm.dao;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.table.DatabaseTable;
-import com.pax.demoapp.db.orm.bean.Student;
 import com.pax.demoapp.db.orm.base.BaseOrmDao;
+import com.pax.demoapp.db.orm.bean.Student;
+import com.pax.demoapp.utils.LogUtils;
 
 import java.sql.SQLException;
 import java.util.Collections;

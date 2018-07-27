@@ -1,7 +1,7 @@
 package com.pax.demoapp.db.orm.bean;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.j256.ormlite.field.DatabaseField;
+import com.pax.demoapp.utils.LogUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

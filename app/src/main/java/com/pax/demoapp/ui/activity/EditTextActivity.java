@@ -6,11 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.pax.demoapp.R;
 import com.pax.demoapp.config.MenuConfig;
 import com.pax.demoapp.ui.adapter.MenuAdapter;
 import com.pax.demoapp.utils.SoftKeyboardUtils;
+import com.pax.demoapp.utils.ToastUtils;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,5 +1,9 @@
 package com.pax.demoapp.utils;
 
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+
+import com.pax.demoapp.DemoApp;
 import com.pax.demoapp.db.orm.dao.StudentDao;
 
 import java.util.Random;
@@ -31,5 +35,37 @@ public class OtherUtils {
 
     public static String getRandomWord() {
         return WORDS[new Random().nextInt(WORDS.length)];
+    }
+
+    /**
+     * 获取meta数据
+     *
+     * @param metaKey metaKey
+     * @return meta data
+     */
+    public static String getMeta(String metaKey) {
+        ApplicationInfo appInfo;
+        try {
+            DemoApp app = DemoApp.getApp();
+            appInfo = app.getPackageManager()
+                    .getApplicationInfo(app.getPackageName(), PackageManager.GET_META_DATA);
+            return appInfo.metaData.getString(metaKey);
+        } catch (PackageManager.NameNotFoundException e) {
+            LogUtils.e(e);
+        }
+        return "";
+    }
+
+    public static int getMetaInt(String metaKey) {
+        ApplicationInfo appInfo;
+        try {
+            DemoApp app = DemoApp.getApp();
+            appInfo = app.getPackageManager()
+                    .getApplicationInfo(app.getPackageName(), PackageManager.GET_META_DATA);
+            return appInfo.metaData.getInt(metaKey);
+        } catch (PackageManager.NameNotFoundException e) {
+            LogUtils.e(e);
+        }
+        return 0;
     }
 }

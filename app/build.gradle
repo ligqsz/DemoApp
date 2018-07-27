@@ -1,6 +1,60 @@
 apply plugin: 'com.android.application'
 //greenDao插件使用
 apply plugin: 'org.greenrobot.greendao'
+
+//读取签名配置文件
+def getSigningProperties() {
+
+    def propFile = file('signing.properties')
+    if (propFile.canRead()) {
+        Properties props = new Properties()
+        props.load(new FileInputStream(propFile))
+        if (props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+                props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+
+            android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+            android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+            android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+            android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+
+        } else {
+
+            println 'signing.properties found but some entries are missing'
+            android.buildTypes.release.signingConfig = null
+        }
+    } else {
+        println 'signing.properties not found'
+        android.buildTypes.release.signingConfig = null
+    }
+}
+
+//获取版本号：
+@SuppressWarnings("GroovyUnusedDeclaration")
+def getVersionCode() {
+    def versionFile = file('version.properties')
+    if (versionFile.canRead()) {
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionFile))
+        def versionCode = versionProps['VERSION_CODE'].toInteger()
+        def runTasks = gradle.startParameter.taskNames
+        //仅在assembleRelease任务是增加版本号
+        if ('assembleRelease' in runTasks) {
+            versionProps['VERSION_CODE'] = (++versionCode).toString()
+            versionProps.store(versionFile.newWriter(), null)
+        }
+        return versionCode
+    } else {
+        throw new GradleException("Could not find version.properties!")
+    }
+}
+
+//获取当前时间
+@SuppressWarnings("GroovyUnusedDeclaration")
+static
+def getCurrentTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -10,12 +64,81 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //配置dimension
+        flavorDimensions "pack"
+        //占位符
+        manifestPlaceholders = [UMENG_CHANNEL: "example", SHOW_LOG: "0", SAVE_LOG: "0"]
+        //NDK的配置
+        ndk { abiFilters "armeabi", "armeabi-v7a", "x86", "mips" }
+
+        resValue "string", "main_title", "name"       //    代码内调用方式:  R.string maintitle
+        buildConfigField "boolean", "IS_LOG", "true"    //  代码内调用方式:  BuildConfig.IS_LOG
     }
+
+    /*多渠道的一些配置 */
+    //关于多渠道打包的另一种配置可以参考另一篇文章：https://www.jianshu.com/p/332525b09a88
+    productFlavors {
+        tencent {
+            applicationId "com.pax.demoapp"
+            dimension "pack"
+            manifestPlaceholders = [appName: "tencent"]
+        }
+        baidu {
+            applicationId "com.pax.demoapp"
+            dimension "pack"
+            manifestPlaceholders = [appName: "baidu"]
+        }
+    }
+
+    signingConfigs {
+        debug {
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+
+        release {
+            storeFile
+            storePassword
+            keyAlias
+            keyPassword
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    getSigningProperties()
+    //自定义输出包名的设置
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            // 输出apk名称为sharev1.0_tencent.apk
+            def fileName = "demo_app${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+            outputFileName = fileName
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            debuggable true  //启用debug的buildType配置
+        }
+        //输出类型
+        applicationVariants.all {
+            //判断是release还是debug版本
+            def buildType = it.buildType.name
+            //获取当前时间的"YYYY-MM-dd"格式。
+            def createTime = new Date().format("YYYY-MM-dd", TimeZone.getTimeZone("GMT+08:00"))
+            //如果是正式包,将其输入到指定文件夹
+            if (buildType == "release") {
+                it.getPackageApplication().outputDirectory = new File('E:\\out_apk' + "/${it.productFlavors[0].applicationId}/${createTime}")
+            }
+        }
+
     }
     buildToolsVersion '27.0.3'
     compileOptions {

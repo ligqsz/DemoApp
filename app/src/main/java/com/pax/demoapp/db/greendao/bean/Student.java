@@ -1,6 +1,7 @@
 package com.pax.demoapp.db.greendao.bean;
 
-import com.blankj.utilcode.util.LogUtils;
+
+import com.pax.demoapp.utils.LogUtils;
 
 import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;

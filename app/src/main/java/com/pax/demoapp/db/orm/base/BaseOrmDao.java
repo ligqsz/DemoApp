@@ -1,10 +1,10 @@
 package com.pax.demoapp.db.orm.base;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.pax.demoapp.DemoApp;
+import com.pax.demoapp.utils.LogUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

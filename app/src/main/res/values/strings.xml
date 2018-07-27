@@ -4,4 +4,6 @@
     <string name="dialog_text">我就是我,不一样的烟火!!</string>
     <string name="dialog_confirm">确定</string>
     <string name="dialog_cancel">取消</string>
+    <string name="test">test</string>
+    <string name="result">result:</string>
 </resources>

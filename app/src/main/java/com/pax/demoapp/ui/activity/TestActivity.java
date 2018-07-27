@@ -1,30 +1,38 @@
 
 package com.pax.demoapp.ui.activity;
 
-import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.pax.demoapp.DemoApp;
 import com.pax.demoapp.R;
+import com.pax.demoapp.utils.OtherUtils;
 
 /**
  * @author ligq
  */
-public class TestActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity implements IActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
-
-        View decorView = getWindow().getDecorView();
-
-        LogUtils.d("decView:" + decorView.getClass());
-
-        findViewById(R.id.bt).setOnClickListener(v -> DemoApp.getApp().startTask());
+    public int getLayoutId() {
+        return R.layout.activity_test;
     }
 
+    @Override
+    public void initData() {
+        // do nothing
+    }
 
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void initView() {
+        Button btTest = findViewById(R.id.bt_test);
+        TextView tvResult = findViewById(R.id.tv_result);
+
+        btTest.setOnClickListener(v ->
+                tvResult.setText("channel:" + OtherUtils.getMeta("UMENG_CHANNEL") + "\n" +
+                        "save log:" + OtherUtils.getMetaInt("SAVE_LOG") + "\n" +
+                        "show log:" + OtherUtils.getMetaInt("SHOW_LOG")));
+    }
 }
