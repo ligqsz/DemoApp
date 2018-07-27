@@ -62,7 +62,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName "1.00.00"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //配置dimension
@@ -71,6 +71,8 @@ android {
         manifestPlaceholders = [UMENG_CHANNEL: "example", SHOW_LOG: "0", SAVE_LOG: "0"]
         //NDK的配置
         ndk { abiFilters "armeabi", "armeabi-v7a", "x86", "mips" }
+        //将语言资源限定为仅支持中文
+        resConfigs "zh"
 
         resValue "string", "main_title", "name"       //    代码内调用方式:  R.string maintitle
         buildConfigField "boolean", "IS_LOG", "true"    //  代码内调用方式:  BuildConfig.IS_LOG
@@ -112,20 +114,23 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all {
             // 输出apk名称为sharev1.0_tencent.apk
-            def fileName = "demo_app${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+            def fileName = "demo_app_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
             outputFileName = fileName
         }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            manifestPlaceholders = [UMENG_CHANNEL: "example", SHOW_LOG: "1", SAVE_LOG: "1"]
+            minifyEnabled true
+            shrinkResources true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         debug {
             debuggable true  //启用debug的buildType配置
+            manifestPlaceholders = [UMENG_CHANNEL: "example", SHOW_LOG: "0", SAVE_LOG: "0"]
         }
         //输出类型
         applicationVariants.all {
@@ -159,17 +164,20 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    //recycler view 及万能适配器
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.zhy:base-rvadapter:3.0.3'
+
     implementation 'com.android.support:design:27.1.1'
 
-    implementation 'com.blankj:utilcode:1.10.0'
-
+    //utils 工具库
+//    implementation 'com.blankj:utilcode:1.10.0'
+    //ormlite
     implementation 'com.j256.ormlite:ormlite-android:5.0'
     implementation 'com.j256.ormlite:ormlite-core:5.0'
 
     //LogUtils框架:https://github.com/pengwei1024/LogUtils
-    implementation 'com.apkfuns.logutils:library:1.6.0'
+//    implementation 'com.apkfuns.logutils:library:1.6.0'
     //fastJson Android 版本:https://github.com/alibaba/fastjson/wiki/Android%E7%89%88%E6%9C%AC
     implementation 'com.alibaba:fastjson:1.1.54.android'
     //greenDao依赖

@@ -11,13 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.apkfuns.logutils.LogUtils;
 import com.pax.demoapp.R;
 import com.pax.demoapp.config.MenuConfig;
 import com.pax.demoapp.db.greendao.bean.Student;
 import com.pax.demoapp.db.greendao.bean.StudentDao;
 import com.pax.demoapp.db.greendao.manager.DaoManager;
 import com.pax.demoapp.ui.adapter.MenuAdapter;
+import com.pax.demoapp.utils.LogUtils;
 import com.pax.demoapp.utils.OtherUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
