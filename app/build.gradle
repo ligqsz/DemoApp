@@ -52,7 +52,7 @@ def getVersionCode() {
 @SuppressWarnings("GroovyUnusedDeclaration")
 static
 def getCurrentTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+    return new Date().format("yyyyMMddHHmmss", TimeZone.getTimeZone("UTC"))
 }
 
 android {
@@ -113,8 +113,8 @@ android {
     //自定义输出包名的设置
     applicationVariants.all { variant ->
         variant.outputs.all {
-            // 输出apk名称为sharev1.0_tencent.apk
-            def fileName = "demo_app_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+            // 输出apk名称为demo_app_v1.00.00_20180727143444_baidu.apk
+            def fileName = "demo_app_v${defaultConfig.versionName}_${getCurrentTime()}_${variant.productFlavors[0].name}.apk"
             outputFileName = fileName
         }
     }
@@ -140,7 +140,7 @@ android {
             def createTime = new Date().format("YYYY-MM-dd", TimeZone.getTimeZone("GMT+08:00"))
             //如果是正式包,将其输入到指定文件夹
             if (buildType == "release") {
-                it.getPackageApplication().outputDirectory = new File('E:\\out_apk' + "/${it.productFlavors[0].applicationId}/${createTime}")
+                it.getPackageApplication().outputDirectory = new File('ERROR:\\out_apk' + "/${it.productFlavors[0].applicationId}/${createTime}")
             }
         }
 
