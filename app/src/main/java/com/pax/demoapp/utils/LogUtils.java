@@ -1,7 +1,6 @@
 package com.pax.demoapp.utils;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -27,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -48,7 +46,6 @@ import javax.xml.transform.stream.StreamSource;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class LogUtils {
-    private static Application app;
 
     public static final int VERBOSE = Log.VERBOSE;
     public static final int DEBUG = Log.DEBUG;
@@ -86,7 +83,7 @@ public class LogUtils {
     private static final String NOTHING = "log nothing";
     private static final String NULL = "null";
     private static final String ARGS = "args";
-    private static Config config;
+    private static Config config = new Config();
 
     private static ExecutorService sExecutor;
     /**
@@ -268,11 +265,6 @@ public class LogUtils {
                 Thread.currentThread().interrupt();
             }
         }
-    }
-
-    public static void init(Application application) {
-        app = application;
-        config = new Config();
     }
 
     private static TagHead processTagAndHead(String tag) {
@@ -539,9 +531,9 @@ public class LogUtils {
         String versionName = "";
         int versionCode = 0;
         try {
-            PackageInfo pi = app
+            PackageInfo pi = Utils.getApp()
                     .getPackageManager()
-                    .getPackageInfo(app.getPackageName(), 0);
+                    .getPackageInfo(Utils.getApp().getPackageName(), 0);
             if (pi != null) {
                 versionName = pi.versionName;
                 versionCode = pi.versionCode;
@@ -588,25 +580,22 @@ public class LogUtils {
                         return thread;
                     });
         }
-        Future<Boolean> submit = sExecutor.submit(new Callable<Boolean>() {
-            @Override
-            public Boolean call() throws Exception {
-                BufferedWriter bw = null;
-                try (BufferedWriter bwTemp = new BufferedWriter(new FileWriter(filePath, true))) {
-                    bw = bwTemp;
-                    bwTemp.write(input);
-                    return true;
+        Future<Boolean> submit = sExecutor.submit(() -> {
+            BufferedWriter bw = null;
+            try (BufferedWriter bwTemp = new BufferedWriter(new FileWriter(filePath, true))) {
+                bw = bwTemp;
+                bwTemp.write(input);
+                return true;
+            } catch (IOException e) {
+                Log.e(TAG, "call: ", e);
+                return false;
+            } finally {
+                try {
+                    if (bw != null) {
+                        bw.close();
+                    }
                 } catch (IOException e) {
                     Log.e(TAG, "call: ", e);
-                    return false;
-                } finally {
-                    try {
-                        if (bw != null) {
-                            bw.close();
-                        }
-                    } catch (IOException e) {
-                        Log.e(TAG, "call: ", e);
-                    }
                 }
             }
         });
@@ -624,10 +613,10 @@ public class LogUtils {
                 return;
             }
             if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-                    && app.getExternalCacheDir() != null) {
-                sDefaultDir = app.getExternalCacheDir() + FILE_SEP + "log" + FILE_SEP;
+                    && Utils.getApp().getExternalCacheDir() != null) {
+                sDefaultDir = Utils.getApp().getExternalCacheDir() + FILE_SEP + "log" + FILE_SEP;
             } else {
-                sDefaultDir = app.getCacheDir() + FILE_SEP + "log" + FILE_SEP;
+                sDefaultDir = Utils.getApp().getCacheDir() + FILE_SEP + "log" + FILE_SEP;
             }
         }
 

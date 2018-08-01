@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuA
                 startActivity(new Intent(this, EditTextActivity.class));
                 break;
             case 4:
-                startActivity(new Intent(this, TestActivity.class));
+                startActivity(new Intent(this, ToolBarActivity.class));
                 break;
             case 5:
                 startActivity(new Intent(this, OrmLiteActivity.class));

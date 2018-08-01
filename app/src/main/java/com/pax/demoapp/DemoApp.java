@@ -12,6 +12,7 @@ import com.pax.demoapp.ui.activity.EditTextActivity;
 import com.pax.demoapp.ui.activity.IActivity;
 import com.pax.demoapp.utils.LogUtils;
 import com.pax.demoapp.utils.OtherUtils;
+import com.pax.demoapp.utils.Utils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -38,14 +39,14 @@ public class DemoApp extends Application {
     }
 
     private void init() {
-        initLogUtils();
+        initUtils();
         initExecutorService();
         initLifeCycleCallBack();
         DaoManager.initDb(this, MenuConfig.DB_NAME);
     }
 
-    private void initLogUtils() {
-        LogUtils.init(this);
+    private void initUtils() {
+        Utils.init(this);
         boolean showLog = 0 == OtherUtils.getMetaInt("SHOW_LOG");
         LogUtils.getConfig().setLogSwitch(showLog);
         LogUtils.getConfig().setLog2FileSwitch(showLog);

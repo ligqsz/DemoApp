@@ -6,4 +6,7 @@
 
     <color name="greed">@android:color/holo_green_dark</color>
     <color name="red">@android:color/holo_red_dark</color>
+
+    <color name="white">@android:color/white</color>
+    <color name="black">@android:color/black</color>
 </resources>

@@ -6,4 +6,7 @@
     <string name="dialog_cancel">取消</string>
     <string name="test">test</string>
     <string name="result">result:</string>
+    <string name="search">Search</string>
+    <string name="setting">setting</string>
+    <string name="delete">delete</string>
 </resources>

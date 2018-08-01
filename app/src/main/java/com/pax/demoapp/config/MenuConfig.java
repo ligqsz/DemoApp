@@ -7,7 +7,7 @@ package com.pax.demoapp.config;
 
 public class MenuConfig {
     public static final String[] MENU_MAIN = {"弹出按钮框", "弹出ProgressBar", "跳转pager界面"
-            , "测试改变软键盘Enter键", "testActivity", "OrmLite Demo", "Green Dao Demo"};
+            , "测试改变软键盘Enter键", "ToolBarActivity", "OrmLite Demo", "Green Dao Demo"};
 
     public static final String[] MENU_EDIT = {"actionDone", "actionGo", "actionNext"
             , "actionNone", "actionSearch", "actionSend"};
