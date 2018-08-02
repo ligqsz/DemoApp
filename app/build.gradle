@@ -171,7 +171,7 @@ dependencies {
     implementation 'com.android.support:design:27.1.1'
 
     //utils 工具库
-//    implementation 'com.blankj:utilcode:1.10.0'
+    implementation 'com.blankj:utilcode:1.18.0'
     //ormlite
     implementation 'com.j256.ormlite:ormlite-android:5.0'
     implementation 'com.j256.ormlite:ormlite-core:5.0'

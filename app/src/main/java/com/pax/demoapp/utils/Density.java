@@ -8,10 +8,12 @@ import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 
 /**
+ * Deprecated {@link ScreenUtils#adaptScreen(Activity, float, boolean)}
+ *
  * @author ligq
  * @date 2018/6/28
  */
-
+@Deprecated
 public class Density {
     private static float appDensity;
 

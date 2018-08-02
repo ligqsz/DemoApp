@@ -10,7 +10,6 @@ import com.pax.demoapp.R;
 import com.pax.demoapp.config.MenuConfig;
 import com.pax.demoapp.ui.adapter.MenuAdapter;
 import com.pax.demoapp.utils.ActivityUtils;
-import com.pax.demoapp.utils.Density;
 import com.pax.demoapp.utils.ToastUtils;
 import com.pax.demoapp.view.dialog.CustomDialog;
 import com.pax.demoapp.view.dialog.DialogUtils;
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuA
 
     @Override
     public void initData() {
-        Density.setDensity(getApplication(), this);
         dataList = new LinkedList<>();
         dataList.addAll(Arrays.asList(MenuConfig.MENU_MAIN));
     }

@@ -12,6 +12,7 @@ import com.pax.demoapp.ui.activity.EditTextActivity;
 import com.pax.demoapp.ui.activity.IActivity;
 import com.pax.demoapp.utils.LogUtils;
 import com.pax.demoapp.utils.OtherUtils;
+import com.pax.demoapp.utils.ScreenUtils;
 import com.pax.demoapp.utils.Utils;
 
 import java.util.LinkedList;
@@ -48,8 +49,7 @@ public class DemoApp extends Application {
     private void initUtils() {
         Utils.init(this);
         boolean showLog = 0 == OtherUtils.getMetaInt("SHOW_LOG");
-        LogUtils.getConfig().setLogSwitch(showLog);
-        LogUtils.getConfig().setLog2FileSwitch(showLog);
+        LogUtils.getConfig().setLogSwitch(showLog).setLog2FileSwitch(showLog);
     }
 
     private void initExecutorService() {
@@ -69,6 +69,7 @@ public class DemoApp extends Application {
                 LogUtils.d(TAG, "onActivityCreated: " + activity.getLocalClassName());
                 LogUtils.d(TAG, "Pid: " + Process.myPid());
                 activityLinkedList.add(activity);
+                ScreenUtils.adaptScreen4VerticalSlide(activity, 360);
                 if (activity instanceof IActivity) {
                     IActivity iActivity = (IActivity) activity;
                     activity.setContentView(iActivity.getLayoutId());
