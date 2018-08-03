@@ -51,6 +51,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:src="@drawable/ic_test_svg" />
+
+        <ImageView
+            android:id="@+id/iv_webp_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:src="@mipmap/webp_test" />
     </LinearLayout>
 
 </LinearLayout>

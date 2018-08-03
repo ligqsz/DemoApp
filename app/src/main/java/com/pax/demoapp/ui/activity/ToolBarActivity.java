@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pax.demoapp.R;
@@ -37,6 +38,10 @@ public class ToolBarActivity extends AppCompatActivity implements IActivity {
                 tvResult.setText("channel:" + OtherUtils.getMeta("UMENG_CHANNEL") + "\n" +
                         "save log:" + OtherUtils.getMetaInt("SAVE_LOG") + "\n" +
                         "show log:" + OtherUtils.getMetaInt("SHOW_LOG")));
+
+        //webp格式图片在Android4.0以下不支持,4.2.1以下只支持完全不透明的webp图
+        ImageView ivWebpTest = findViewById(R.id.iv_webp_test);
+        ivWebpTest.setImageResource(R.mipmap.webp_test);
     }
 
     private void initToolBar() {
