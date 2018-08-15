@@ -56,13 +56,13 @@ def getCurrentTime() {
 }
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
         applicationId "com.pax.demoapp"
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.00.00"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //配置dimension
@@ -145,7 +145,7 @@ android {
         }
 
     }
-    buildToolsVersion '27.0.3'
+    buildToolsVersion rootProject.buildToolsVersion
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -158,14 +158,14 @@ greendao {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation var.SupportV7
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //recycler view 及万能适配器
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation var.SupportRecyclerviewV7
     implementation 'com.zhy:base-rvadapter:3.0.3'
 
     implementation 'com.android.support:design:27.1.1'
