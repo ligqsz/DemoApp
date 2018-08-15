@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.pax.demoapp.R;
 import com.pax.demoapp.utils.OtherUtils;
 import com.pax.demoapp.utils.ToastUtils;
+import com.pax.demoapp.view.JustifyTextView;
 
 /**
  * @author ligq
@@ -19,7 +20,7 @@ public class ToolBarActivity extends AppCompatActivity implements IActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_test;
+        return R.layout.activity_toolbar;
     }
 
     @Override
@@ -33,15 +34,19 @@ public class ToolBarActivity extends AppCompatActivity implements IActivity {
         initToolBar();
         Button btTest = findViewById(R.id.bt_test);
         TextView tvResult = findViewById(R.id.tv_result);
-
-        btTest.setOnClickListener(v ->
-                tvResult.setText("channel:" + OtherUtils.getMeta("UMENG_CHANNEL") + "\n" +
-                        "save log:" + OtherUtils.getMetaInt("SAVE_LOG") + "\n" +
-                        "show log:" + OtherUtils.getMetaInt("SHOW_LOG")));
-
+        JustifyTextView test = findViewById(R.id.tv_test);
         //webp格式图片在Android4.0以下不支持,4.2.1以下只支持完全不透明的webp图
         ImageView ivWebpTest = findViewById(R.id.iv_webp_test);
         ivWebpTest.setImageResource(R.mipmap.webp_test);
+        btTest.setOnClickListener(v -> {
+                    tvResult.setText("channel:" + OtherUtils.getMeta("UMENG_CHANNEL") + "\n" +
+                            "save log:" + OtherUtils.getMetaInt("SAVE_LOG") + "\n" +
+                            "show log:" + OtherUtils.getMetaInt("SHOW_LOG"));
+                    test.setScaleX(2);
+                    test.setText(R.string.test_string);
+                }
+        );
+
     }
 
     private void initToolBar() {

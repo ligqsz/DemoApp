@@ -27,7 +27,7 @@
         <activity android:name=".ui.activity.OrmLiteActivity" />
         <activity android:name=".ui.activity.OrmResultActivity" />
         <activity android:name=".ui.activity.GreenDaoActivity" />
-        <!--占位符-->
+        <!-- 占位符 -->
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL}" />
@@ -37,6 +37,9 @@
         <meta-data
             android:name="SAVE_LOG"
             android:value="${SAVE_LOG}" />
+
+        <activity android:name=".ui.activity.CustomViewActivity" />
+        <activity android:name=".ui.activity.TestActivity"/>
     </application>
 
 </manifest>
