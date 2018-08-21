@@ -13,6 +13,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionOverflowButtonStyle">@style/OverflowMenuStyle</item>
     </style>
 
     <!--dialog样式-->
@@ -59,6 +60,8 @@
         <item name="android:dropDownHorizontalOffset">0dp</item>
         <!-- 设置弹出菜单文字颜色 -->
         <item name="android:textColor">@color/black</item>
+        <!--设置overflow图标,用来替换之前的三个点-->
+        <item name="android:src">@drawable/ic_menu_white_24dp</item>
     </style>
     <!--*************toolBar主题样式*************↑-->
 </resources>

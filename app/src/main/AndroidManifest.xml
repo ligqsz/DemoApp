@@ -39,7 +39,11 @@
             android:value="${SAVE_LOG}" />
 
         <activity android:name=".ui.activity.CustomViewActivity" />
-        <activity android:name=".ui.activity.TestActivity"/>
+        <activity android:name=".ui.activity.TestActivity" />
+        <activity android:name=".ui.activity.AnimActivity" />
+        <activity
+            android:name=".ui.activity.PropertyActivity"
+            android:theme="@style/AppThemeNoActionBar" />
     </application>
 
 </manifest>

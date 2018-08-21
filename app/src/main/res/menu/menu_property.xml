@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_do_by_xml"
+        android:orderInCategory="100"
+        android:title="@string/do_by_xml" />
+    <item
+        android:id="@+id/action_by_code"
+        android:orderInCategory="100"
+        android:title="@string/do_by_code" />
+    <item
+        android:id="@+id/action_by_custom"
+        android:orderInCategory="100"
+        android:title="@string/do_by_custom" />
+    <item
+        android:id="@+id/action_by_view_property_animator"
+        android:orderInCategory="100"
+        android:title="@string/view_property_animator" />
+    <item
+        android:id="@+id/action_by_layout_animator"
+        android:orderInCategory="100"
+        android:title="@string/layout_animator_hide_show" />
+
+</menu>
