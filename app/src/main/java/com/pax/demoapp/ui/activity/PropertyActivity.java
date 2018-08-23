@@ -12,6 +12,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -20,6 +21,9 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
 
 import com.pax.demoapp.R;
+import com.pax.demoapp.ui.anim.MyEvaluator;
+import com.pax.demoapp.ui.anim.PropertyBean;
+import com.pax.demoapp.ui.anim.SpeedUpInterpolator;
 
 import java.util.ArrayList;
 
@@ -127,10 +131,64 @@ public class PropertyActivity extends AppCompatActivity implements IActivity {
             case R.id.action_by_view_property_animator:
                 doAnimation(getAnimationByViewPropertyAnimator());
                 break;
+            case R.id.action_by_custom:
+                doAnimation(getAnimationByCustom());
+                break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private Animator getAnimationByCustom() {
+        int width = viewPuppet.getWidth();
+        int height = viewPuppet.getHeight();
+        PropertyBean startBean = new PropertyBean(0xff009688, 1f, 0f);
+        PropertyBean endBean = new PropertyBean(0xff795535, 1.2f, 360f);
+        ValueAnimator animator = new ValueAnimator();
+        animator.setInterpolator(new SpeedUpInterpolator());
+        animator.setObjectValues(startBean, endBean);
+        animator.setEvaluator(new MyEvaluator());
+        animator.setRepeatCount(1);
+        animator.setRepeatMode(ValueAnimator.REVERSE);
+        animator.setDuration(3000);
+        animator.addUpdateListener(animation -> {
+            PropertyBean propertyBean = (PropertyBean) animation.getAnimatedValue();
+            ViewGroup.LayoutParams layoutParams = viewPuppet.getLayoutParams();
+            layoutParams.width = (int) (width * propertyBean.getSize()) + width;
+            layoutParams.height = (int) (height * propertyBean.getSize()) + height;
+            if (propertyBean.getBackgroundColor() != 0 || propertyBean.getBackgroundColor() != 1) {
+                viewPuppet.setBackgroundColor(propertyBean.getBackgroundColor());
+            }
+            viewPuppet.setRotationX(propertyBean.getRotationX());
+            viewPuppet.requestLayout();
+            Log.i("addUpdateListener", "height:" + layoutParams.height + "\n" +
+                    "width:" + layoutParams.width + "\n" +
+                    "propertyBean:" + propertyBean.toString());
+        });
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                Log.i("onAnimationEnd", "onAnimationEnd: width="
+                        + viewPuppet.getLayoutParams().width);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        return animator;
     }
 
     private ViewPropertyAnimator getAnimationByViewPropertyAnimator() {
