@@ -6,4 +6,13 @@
         <attr name="text_size" format="dimension" />
         <attr name="text_str" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="TickView">
+        <attr name="ring_width" format="dimension" />
+        <attr name="ring_radius" format="dimension" />
+        <attr name="checked_color" format="color" />
+        <attr name="unchecked_color" format="color" />
+        <attr name="checked_tick_color" format="color" />
+        <attr name="background_color" format="color" />
+    </declare-styleable>
 </resources>

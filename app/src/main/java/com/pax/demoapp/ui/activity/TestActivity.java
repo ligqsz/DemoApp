@@ -2,6 +2,7 @@ package com.pax.demoapp.ui.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.support.annotation.IntDef;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,11 @@ import android.widget.TextView;
 
 import com.pax.demoapp.DemoApp;
 import com.pax.demoapp.R;
+import com.pax.demoapp.utils.LogUtils;
 import com.pax.demoapp.utils.ScreenUtils;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author ligq
@@ -29,7 +34,11 @@ public class TestActivity extends AppCompatActivity implements IActivity {
 
     @Override
     public void initData() {
-
+        setCurrentDay(MONDAY | SATURDAY & FRIDAY);
+        setState(SUCCESS);
+        @WeekDays int today = getCurrentDay();
+        @TransState int state = getState();
+        LogUtils.d("today:" + today);
     }
 
     @Override
@@ -79,5 +88,51 @@ public class TestActivity extends AppCompatActivity implements IActivity {
         view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
         view.buildDrawingCache();
         return view.getDrawingCache();
+    }
+
+    @WeekDays
+    private int currentDay = SUNDAY;
+
+    public static final int SUNDAY = 0;
+    public static final int MONDAY = 1;
+    public static final int TUESDAY = 1 << 1;
+    public static final int WEDNESDAY = 3;
+    public static final int THURSDAY = 1 << 2;
+    public static final int FRIDAY = 5;
+    public static final int SATURDAY = 6;
+
+    @IntDef(flag = true, value = {SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface WeekDays {
+    }
+
+    public void setCurrentDay(@WeekDays int currentDay) {
+        this.currentDay = currentDay;
+    }
+
+    @WeekDays
+    public int getCurrentDay() {
+        return currentDay;
+    }
+
+
+    public static final int SUCCESS = 0;
+    public static final int FAILED = 1;
+    public static final int UNKNOWN = 2;
+    @TransState
+    private int state = SUCCESS;
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({SUCCESS, FAILED, UNKNOWN})
+    @interface TransState {
+    }
+
+    @TransState
+    public int getState() {
+        return state;
+    }
+
+    public void setState(@TransState int state) {
+        this.state = state;
     }
 }

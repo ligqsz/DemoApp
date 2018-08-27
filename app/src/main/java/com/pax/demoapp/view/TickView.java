@@ -6,6 +6,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -19,7 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
-import com.pax.demoapp.utils.DensityUtils;
+import com.pax.demoapp.R;
 
 import static com.pax.demoapp.DemoApp.TAG;
 
@@ -83,7 +84,7 @@ public class TickView extends View {
     /**
      * 最后扩大缩小动画中,画笔的宽度的最大倍数
      */
-    private static final int SCALE_TIMES = 6;
+    private static final int SCALE_TIMES = 3;
 
     /**
      * 全部动画的组合
@@ -97,6 +98,11 @@ public class TickView extends View {
     private PathMeasure mPathMeasure;
     private Path mTickPathMeasureDst;
 
+    private int checkedColor;
+    private int unCheckedColor;
+    private int checkedTickColor;
+    private int backGroundColor;
+
     public TickView(Context context) {
         this(context, null);
     }
@@ -107,13 +113,18 @@ public class TickView extends View {
 
     public TickView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.TickView);
+        ringWidth = (int) ta.getDimension(R.styleable.TickView_ring_width, 0);
+        ringRadius = (int) ta.getDimension(R.styleable.TickView_ring_radius, 0);
+        checkedColor = ta.getColor(R.styleable.TickView_checked_color, Color.RED);
+        unCheckedColor = ta.getColor(R.styleable.TickView_unchecked_color, Color.GRAY);
+        checkedTickColor = ta.getColor(R.styleable.TickView_checked_tick_color, Color.WHITE);
+        backGroundColor = ta.getColor(R.styleable.TickView_background_color, Color.WHITE);
+        ta.recycle();
         init();
     }
 
     private void init() {
-        ringWidth = 8;
-        ringRadius = 80;
-
         initPaint();
         initAnimator();
         setUpEvent();
@@ -134,23 +145,25 @@ public class TickView extends View {
         if (mPaintRing == null) {
             mPaintRing = new Paint(Paint.ANTI_ALIAS_FLAG);
         }
-        mPaintRing.setColor(isChecked ? Color.RED : Color.GRAY);
+
+        mPaintRing.setColor(isChecked ? checkedColor : unCheckedColor);
         mPaintRing.setStyle(Paint.Style.STROKE);
         mPaintRing.setStrokeCap(Paint.Cap.ROUND);
-        mPaintRing.setStrokeWidth(DensityUtils.dp2px(2.5f));
+        mPaintRing.setStrokeWidth(ringWidth);
 
         if (mPaintCircle == null) {
             mPaintCircle = new Paint(Paint.ANTI_ALIAS_FLAG);
         }
-        mPaintCircle.setColor(Color.WHITE);
+        mPaintCircle.setColor(unCheckedColor);
 
         if (mPaintTick == null) {
             mPaintTick = new Paint(Paint.ANTI_ALIAS_FLAG);
         }
-        mPaintTick.setColor(isChecked ? Color.GREEN : Color.GRAY);
+
+        mPaintTick.setColor(isChecked ? checkedTickColor : unCheckedColor);
         mPaintTick.setStyle(Paint.Style.STROKE);
         mPaintTick.setStrokeCap(Paint.Cap.ROUND);
-        mPaintTick.setStrokeWidth(DensityUtils.dp2px(2.5f));
+        mPaintTick.setStrokeWidth(ringWidth);
 
     }
 
@@ -183,13 +196,12 @@ public class TickView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = getMySize((ringRadius + DensityUtils.dp2px(2.5f) * SCALE_TIMES) * 2, widthMeasureSpec);
-        int height = getMySize((ringRadius + DensityUtils.dp2px(2.5f) * SCALE_TIMES) * 2, heightMeasureSpec);
+        int width = getMySize((ringRadius + ringWidth * SCALE_TIMES) * 2, widthMeasureSpec);
+        int height = getMySize((ringRadius + ringWidth * SCALE_TIMES) * 2, heightMeasureSpec);
         height = width = Math.max(width, height);
         setMeasuredDimension(width, height);
         centerX = getMeasuredWidth() / 2;
         centerY = getMeasuredHeight() / 2;
-
         mRectF.set(centerX - ringRadius * 1.0f, centerY - ringRadius * 1.0f
                 , centerX + ringRadius * 1.0f, centerY + ringRadius * 1.0f);
 
@@ -221,10 +233,15 @@ public class TickView extends View {
             case MeasureSpec.AT_MOST:
                 break;
             case MeasureSpec.EXACTLY:
-                mySize = size;
+                mySize = size + ringWidth * SCALE_TIMES * 2;
+                ringRadius = size / 2;
+                ringWidth = ringRadius / 10;
                 break;
             default:
                 break;
+        }
+        if (ringWidth > ringRadius) {
+            ringWidth = ringRadius / 10;
         }
         return mySize;
     }
@@ -238,12 +255,12 @@ public class TickView extends View {
         }
         //画圆弧弧度
         canvas.drawArc(mRectF, 90, ringProgress, false, mPaintRing);
-        //画白色背景
-        mPaintCircle.setColor(Color.RED);
+        //画选中背景，随着动画会紧缩，最后变为0
+        mPaintCircle.setColor(checkedColor);
         canvas.drawCircle(centerX, centerY, ringProgress == 360 ? ringRadius : 0, mPaintCircle);
         //画收缩內圆
         if (ringProgress == 360) {
-            mPaintCircle.setColor(Color.WHITE);
+            mPaintCircle.setColor(backGroundColor);
             canvas.drawCircle(centerX, centerY, circleRadius, mPaintCircle);
         }
 
@@ -252,7 +269,6 @@ public class TickView extends View {
             mPaintTick.setAlpha((int) (255 * tickProgress));
             mPathMeasure.getSegment(0, tickProgress * mPathMeasure.getLength(), mTickPathMeasureDst, true);
             canvas.drawPath(mTickPathMeasureDst, mPaintTick);
-//            canvas.drawPath(mTickPath, mPaintTick);
             canvas.drawArc(mRectF, 0, 360, false, mPaintRing);
         }
 
@@ -275,8 +291,6 @@ public class TickView extends View {
         circleAnimator.setDuration(300);
 
         //打钩动画
-//        Animator tickAnimator = ObjectAnimator.ofInt(this, "tickAlpha", 0, 255);
-//        tickAnimator.setDuration(200);
         ValueAnimator tickAnimator = ValueAnimator.ofFloat(0.0f, 1.0f);
         tickAnimator.setDuration(400);
         tickAnimator.addUpdateListener(animation -> setTickProgress((Float) animation.getAnimatedValue()));
@@ -293,7 +307,7 @@ public class TickView extends View {
 
         //放大回弹动画
         ObjectAnimator scaleAnimator = ObjectAnimator.ofFloat(this, "ringStrokeWidth", mPaintRing.getStrokeWidth()
-                , mPaintRing.getStrokeWidth() * 6, mPaintRing.getStrokeWidth() / 6);
+                , mPaintRing.getStrokeWidth() * SCALE_TIMES, mPaintRing.getStrokeWidth() / SCALE_TIMES);
         scaleAnimator.setInterpolator(null);
         scaleAnimator.setDuration(200);
 
