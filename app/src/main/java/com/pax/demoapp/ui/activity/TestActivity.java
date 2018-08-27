@@ -3,6 +3,7 @@ package com.pax.demoapp.ui.activity;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.IntDef;
+import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,5 +135,13 @@ public class TestActivity extends AppCompatActivity implements IActivity {
 
     public void setState(@TransState int state) {
         this.state = state;
+    }
+
+
+    public static final String TEST_STRING = "test string";
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({TEST_STRING})
+    @interface Test {
     }
 }

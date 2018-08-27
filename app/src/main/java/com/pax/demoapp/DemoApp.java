@@ -111,6 +111,10 @@ public class DemoApp extends Application {
         });
     }
 
+    public void runInBackGround(Runnable runnable) {
+        executorService.execute(runnable);
+    }
+
     public void startTask() {
         executorService.scheduleAtFixedRate(() -> {
             LogUtils.d("TASK:jump main");
