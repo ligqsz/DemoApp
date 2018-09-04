@@ -130,16 +130,21 @@ public class PercentView extends View {
                 mPathMeasure.setPath(mTickPath, false);
                 mTickPathMeasureDst.reset();
             }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                isStart = false;
+            }
         });
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = getMeasuredWidth();
-        int height = getMeasuredHeight();
-        centerX = width / 2;
-        centerY = height / 2;
+        int size = (int) ((radius + strokeWidth) * 2);
+        setMeasuredDimension(size, size);
+        centerX = size / 2;
+        centerY = size / 2;
         mRectF.set(centerX - radius * 1.0f, centerY - radius * 1.0f
                 , centerX + radius * 1.0f, centerY + radius * 1.0f);
 
@@ -208,8 +213,13 @@ public class PercentView extends View {
     }
 
     public void reset() {
+        isStart = false;
         isAnimationStart = false;
         tickProgress = 0.f;
         mTickAnimator.cancel();
+    }
+
+    public boolean isStart() {
+        return isStart;
     }
 }

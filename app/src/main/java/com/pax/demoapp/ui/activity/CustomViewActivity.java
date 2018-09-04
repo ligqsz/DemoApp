@@ -27,9 +27,11 @@ public class CustomViewActivity extends AppCompatActivity implements IActivity {
         PercentView percentView = findViewById(R.id.percent_view);
         percentView.setOnClickListener(view ->
                 DemoApp.getApp().runInBackGround(() -> {
+                    if (percentView.isStart()) {
+                        return;
+                    }
                     for (int i = 1; i <= 100; i++) {
                         SystemClock.sleep(100);
-                        percentView.reset();
                         percentView.updateProgress(i);
                     }
                 }));
