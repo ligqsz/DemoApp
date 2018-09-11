@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pax.demoapp.ui.activity.RippleEffectActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="系统自带有边界" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:text="系统自带无边界(API21+)"
+            tools:ignore="NewApi" />
+
+        <Button
+            android:id="@+id/sys_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="系统自带有边界(代码设置)" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cust_ripple_no_bounds"
+            android:text="自定义无边界" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cust_ripple_with_bounds"
+            android:text="自定义有边界" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Style中设置背景"
+            android:theme="@style/AutoButton" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorAccent"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="前景+背景"
+            android:theme="@style/AutoButton" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_ripple_with_shape"
+            android:text="自定义ripple+shape"
+            android:theme="@style/AutoButton" />
+    </LinearLayout>
+
+</ScrollView>

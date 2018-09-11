@@ -18,7 +18,7 @@ public class MenuConfig {
     public static final String[] MENU_GREEN_DAO = {"insert", "deleteAll"
             , "update", "query(All)"};
 
-    public static final String[] MENU_ANIM = {"属性动画"};
+    public static final String[] MENU_ANIM = {"属性动画", "触摸反馈动画"};
     public static final int DEFAULT_HEIGHT = 120;
     public static final String DB_NAME = "data";
     public static final boolean ENCRYPTED = false;

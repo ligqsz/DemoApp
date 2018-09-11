@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -64,4 +64,14 @@
         <item name="android:src">@drawable/ic_menu_white_24dp</item>
     </style>
     <!--*************toolBar主题样式*************↑-->
+
+    <style name="AppTheme.Ripple" parent="AppTheme">
+        <item name="android:colorControlHighlight" tools:ignore="NewApi">#ff0000</item>
+    </style>
+
+    <style name="AutoButton" parent="AppTheme">
+        <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
+        <item name="colorButtonNormal">?attr/colorAccent</item>
+        <item name="android:colorControlHighlight" tools:ignore="NewApi">#00ff00</item>
+    </style>
 </resources>
