@@ -47,6 +47,9 @@ public class AnimActivity extends AppCompatActivity implements IActivity, MenuAd
             case 1:
                 ActivityUtils.jumpActivity(RippleEffectActivity.class);
                 break;
+            case 2:
+                ActivityUtils.jumpActivity(ExposeActivity.class);
+                break;
             default:
                 break;
         }
