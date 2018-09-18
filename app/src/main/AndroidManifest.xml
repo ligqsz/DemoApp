@@ -40,14 +40,19 @@
 
         <activity android:name=".ui.activity.CustomViewActivity" />
         <activity android:name=".ui.activity.TestActivity" />
-        <activity android:name=".ui.activity.AnimActivity" />
+        <activity
+            android:name=".ui.activity.AnimActivity"
+            android:theme="@style/TransactionTheme" />
         <activity
             android:name=".ui.activity.PropertyActivity"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
             android:name=".ui.activity.RippleEffectActivity"
             android:theme="@style/AppTheme.Ripple" />
-        <activity android:name=".ui.activity.ExposeActivity"></activity>
+        <activity android:name=".ui.activity.ExposeActivity" />
+        <activity
+            android:name=".ui.activity.TransitionActivity"
+            android:theme="@style/TransactionTheme" />
     </application>
 
 </manifest>

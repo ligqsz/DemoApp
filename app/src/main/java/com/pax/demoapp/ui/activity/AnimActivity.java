@@ -1,8 +1,13 @@
 package com.pax.demoapp.ui.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Window;
 
 import com.pax.demoapp.R;
 import com.pax.demoapp.config.MenuConfig;
@@ -18,6 +23,11 @@ import java.util.List;
 public class AnimActivity extends AppCompatActivity implements IActivity, MenuAdapter.MenuAdapterListener {
 
     private List<String> menuList;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public int getLayoutId() {
@@ -49,6 +59,10 @@ public class AnimActivity extends AppCompatActivity implements IActivity, MenuAd
                 break;
             case 2:
                 ActivityUtils.jumpActivity(ExposeActivity.class);
+                break;
+            case 3:
+                startActivity(new Intent(this, TransitionActivity.class)
+                        , ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle());
                 break;
             default:
                 break;

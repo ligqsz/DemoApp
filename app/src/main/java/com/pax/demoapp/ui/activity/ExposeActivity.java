@@ -12,6 +12,11 @@ import android.view.ViewAnimationUtils;
 import com.pax.demoapp.R;
 import com.pax.demoapp.utils.LogUtils;
 
+/**
+ * 揭露动画
+ *
+ * @author ligq
+ */
 public class ExposeActivity extends AppCompatActivity implements IActivity {
 
     private View puppet;

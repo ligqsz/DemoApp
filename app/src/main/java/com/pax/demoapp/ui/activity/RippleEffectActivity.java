@@ -7,6 +7,8 @@ import android.widget.Button;
 import com.pax.demoapp.R;
 
 /**
+ * 触摸反馈动画
+ *
  * @author ligq
  */
 public class RippleEffectActivity extends AppCompatActivity implements IActivity {
