@@ -1,1 +1,1 @@
-include ':app', ':JDimensUtils'
+include ':app', ':JDimensUtils', ':paxokhttp'
