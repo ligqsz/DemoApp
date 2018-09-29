@@ -8,6 +8,13 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+    <!--在进入主界面后,将window的background置空即可-->
+    <style name="AppTheme.Center" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/splash_icon</item>
+    </style>
+
     <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
