@@ -23,17 +23,15 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import okhttp3.Call;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * @author ligq
  * @date 2018/9/21
  */
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "SameParameterValue", "unused", "ConstantConditions"})
 public class OkHttpUtils {
     private OkHttpUtils() {
         throw new IllegalArgumentException();
@@ -44,26 +42,23 @@ public class OkHttpUtils {
     private static OkHttpClient okHttpClient;
     public static final int DEFAULT_TIMEOUT = 20;
 
-    public static void get() {
-        okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("https://www.baidu.com")
-                .build();
-        Call call = okHttpClient.newCall(request);
-        try {
-            Response response = call.execute();
-            Log.d(TAG, response.body().string());
-            response.close();
-        } catch (IOException e) {
-            Log.e(TAG, "get: ", e);
+
+    public static OkHttpClient getOkHttpClient(Context context, int timeout) {
+        if (okHttpClient == null) {
+            initClient(context, timeout);
         }
+        return okHttpClient;
     }
 
     public static void initClient(Context context, int timeout) {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
         if (!TextUtils.isEmpty(CER_NAME)) {
             try (InputStream open = context.getResources().getAssets().open(CER_NAME)) {
                 SslParams sslParams = getSslSocketFactory(new InputStream[]{open}, null, null);
                 okHttpClient = new OkHttpClient.Builder()
+                        .addNetworkInterceptor(interceptor)
+                        .addInterceptor(interceptor)
+                        .cache(HttpCache.getCache())
                         //设置连接超时
                         .connectTimeout(timeout, TimeUnit.SECONDS)
                         //设置读超时
@@ -73,12 +68,16 @@ public class OkHttpUtils {
                         //是否自动重连
                         .retryOnConnectionFailure(false)
                         .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                        .hostnameVerifier(org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER)
                         .build();
             } catch (IOException e) {
                 Log.e(TAG, "initClient: ", e);
             }
         } else {
             okHttpClient = new OkHttpClient.Builder()
+                    .addNetworkInterceptor(interceptor)
+                    .addInterceptor(interceptor)
+                    .cache(HttpCache.getCache())
                     //设置连接超时
                     .connectTimeout(timeout, TimeUnit.SECONDS)
                     //设置读超时

@@ -14,6 +14,7 @@ import com.pax.demoapp.utils.LogUtils;
 import com.pax.demoapp.utils.OtherUtils;
 import com.pax.demoapp.utils.ScreenUtils;
 import com.pax.demoapp.utils.Utils;
+import com.pax.paxokhttp.AppUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class DemoApp extends Application {
     }
 
     private void init() {
+        AppUtils.init(this);
         initUtils();
         initExecutorService();
         initLifeCycleCallBack();

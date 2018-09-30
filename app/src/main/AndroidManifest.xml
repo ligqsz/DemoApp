@@ -3,6 +3,7 @@
     package="com.pax.demoapp">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".DemoApp"
@@ -55,6 +56,7 @@
         <activity
             android:name=".ui.activity.TransitionActivity"
             android:theme="@style/TransactionTheme" />
+        <activity android:name=".ui.activity.TestNetActivity"></activity>
     </application>
 
 </manifest>

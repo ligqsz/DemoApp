@@ -18,4 +18,8 @@
     <string name="view_property_animator">ViewPropertyAnimator</string>
     <string name="layout_animator_hide_show">LayoutAnimator(hide/show)</string>
     <string name="property_anim">Property Anim</string>
+    <string name="please_input_city_name">please input city name</string>
+    <string name="default_city">深圳</string>
+    <string name="get">Get</string>
+    <string name="post">Post</string>
 </resources>
