@@ -14,7 +14,7 @@ import com.pax.demoapp.utils.LogUtils;
 import com.pax.demoapp.utils.OtherUtils;
 import com.pax.demoapp.utils.ScreenUtils;
 import com.pax.demoapp.utils.Utils;
-import com.pax.paxokhttp.AppUtils;
+import com.pax.paxokhttp.okhttp.AppUtils;
 
 import java.util.LinkedList;
 import java.util.List;

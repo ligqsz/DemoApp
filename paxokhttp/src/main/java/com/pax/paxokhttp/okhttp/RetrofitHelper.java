@@ -1,4 +1,4 @@
-package com.pax.paxokhttp;
+package com.pax.paxokhttp.okhttp;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

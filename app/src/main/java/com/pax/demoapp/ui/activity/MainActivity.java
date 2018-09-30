@@ -15,6 +15,8 @@ import com.pax.demoapp.utils.ActivityUtils;
 import com.pax.demoapp.utils.ToastUtils;
 import com.pax.demoapp.view.dialog.CustomDialog;
 import com.pax.demoapp.view.dialog.DialogUtils;
+import com.pax.paxokhttp.rxbus.RxBus;
+import com.pax.paxokhttp.rxbus.Subscribe;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuA
 
     @Override
     public void initView() {
+        RxBus.get().register(this);
         RecyclerView rvMenu = findViewById(R.id.rv_menu);
         rvMenu.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         MenuAdapter adapter = new MenuAdapter(this, dataList);
@@ -125,5 +128,17 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuA
             default:
                 break;
         }
+    }
+
+    @SuppressWarnings("unused")
+    @Subscribe
+    public void testRxBus(String str) {
+        ToastUtils.showShort(str);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.get().unRegister(this);
     }
 }

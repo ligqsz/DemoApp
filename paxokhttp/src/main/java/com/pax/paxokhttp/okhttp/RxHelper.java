@@ -1,4 +1,4 @@
-package com.pax.paxokhttp;
+package com.pax.paxokhttp.okhttp;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;

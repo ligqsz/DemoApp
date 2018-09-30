@@ -14,8 +14,9 @@ import android.widget.TextView;
 import com.pax.demoapp.R;
 import com.pax.demoapp.ui.model.WeatherApi;
 import com.pax.demoapp.ui.model.WeatherRequest;
-import com.pax.paxokhttp.RetrofitHelper;
-import com.pax.paxokhttp.RxHelper;
+import com.pax.paxokhttp.okhttp.RetrofitHelper;
+import com.pax.paxokhttp.okhttp.RxHelper;
+import com.pax.paxokhttp.rxbus.RxBus;
 
 public class TestNetActivity extends AppCompatActivity implements IActivity {
 
@@ -78,6 +79,7 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
 
     @Override
     public void initView() {
+        RxBus.get().send("I'm from TestNetActivity");
         requestResult = findViewById(R.id.request_result);
         Button request = findViewById(R.id.request);
         city = findViewById(R.id.city);

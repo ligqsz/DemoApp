@@ -1,4 +1,4 @@
-package com.pax.paxokhttp;
+package com.pax.paxokhttp.okhttp;
 
 import java.io.File;
 

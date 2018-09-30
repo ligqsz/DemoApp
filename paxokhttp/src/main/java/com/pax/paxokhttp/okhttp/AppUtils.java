@@ -1,4 +1,4 @@
-package com.pax.paxokhttp;
+package com.pax.paxokhttp.okhttp;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
