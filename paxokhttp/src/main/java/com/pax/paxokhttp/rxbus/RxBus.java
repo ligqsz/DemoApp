@@ -246,7 +246,7 @@ public class RxBus {
     private void callEvent(SubscriberMethod method, Object object) {
         Class eventClass = object.getClass();
         List<SubscriberMethod> methods = subscriberMethodByEventType.get(eventClass);
-        if (methods != null && methods.size() > 0) {
+        if (methods != null && !methods.isEmpty()) {
             for (SubscriberMethod subscriberMethod : methods) {
                 Subscribe sub = subscriberMethod.method.getAnnotation(Subscribe.class);
                 int c = sub.code();

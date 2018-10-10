@@ -18,6 +18,9 @@ import com.pax.paxokhttp.okhttp.RetrofitHelper;
 import com.pax.paxokhttp.okhttp.RxHelper;
 import com.pax.paxokhttp.rxbus.RxBus;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class TestNetActivity extends AppCompatActivity implements IActivity {
 
     private EditText city;
@@ -48,9 +51,14 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
         showProgress();
         RetrofitHelper.createApi(WeatherApi.class, url)
                 .doGet(city.getText().toString(), "", "", key)
-                .compose(RxHelper.rxSchedulerHelper())
+//                .compose(RxHelper.rxSchedulerHelper())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(responseBody -> requestResult.setText(responseBody.string())
-                        , throwable -> requestResult.setText(throwable.toString())
+                        , throwable -> {
+                            requestResult.setText(throwable.toString());
+                            hideProgress();
+                        }
                         , this::hideProgress);
     }
 
@@ -61,7 +69,10 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
                     .doGetWeather(city.getText().toString(), "", "", key)
                     .compose(RxHelper.rxSchedulerHelper())
                     .subscribe(weatherResponse -> requestResult.setText(weatherResponse.getResult().toString())
-                            , throwable -> requestResult.setText(throwable.toString())
+                            , throwable -> {
+                                requestResult.setText(throwable.toString());
+                                hideProgress();
+                            }
                             , this::hideProgress);
         } else {
             WeatherRequest request = new WeatherRequest();
@@ -72,7 +83,10 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
                     .doPost(key, request)
                     .compose(RxHelper.rxSchedulerHelper())
                     .subscribe(rsp -> requestResult.setText(rsp.string())
-                            , throwable -> requestResult.setText(throwable.toString())
+                            , throwable -> {
+                                requestResult.setText(throwable.toString());
+                                hideProgress();
+                            }
                             , this::hideProgress);
         }
     }
