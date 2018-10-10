@@ -14,12 +14,12 @@ import android.widget.TextView;
 import com.pax.demoapp.R;
 import com.pax.demoapp.ui.model.WeatherApi;
 import com.pax.demoapp.ui.model.WeatherRequest;
+import com.pax.demoapp.utils.LogUtils;
 import com.pax.paxokhttp.okhttp.RetrofitHelper;
 import com.pax.paxokhttp.okhttp.RxHelper;
 import com.pax.paxokhttp.rxbus.RxBus;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.disposables.Disposable;
 
 public class TestNetActivity extends AppCompatActivity implements IActivity {
 
@@ -30,6 +30,7 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
     private int requestMode;
     private String url;
     private String key;
+    private Disposable disposable;
 
     @Override
     public int getLayoutId() {
@@ -49,17 +50,19 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
 
     private void doRequest() {
         showProgress();
-        RetrofitHelper.createApi(WeatherApi.class, url)
+        disposable = RetrofitHelper.createApi(WeatherApi.class, url)
                 .doGet(city.getText().toString(), "", "", key)
-//                .compose(RxHelper.rxSchedulerHelper())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(responseBody -> requestResult.setText(responseBody.string())
+                .compose(RxHelper.rxSchedulerHelper())
+                .doOnNext(responseBody ->
+                        LogUtils.d("doOnNext"))
+                .subscribe(responseBody -> {
+                            requestResult.setText(responseBody.string());
+                            hideProgress();
+                        }
                         , throwable -> {
                             requestResult.setText(throwable.toString());
                             hideProgress();
-                        }
-                        , this::hideProgress);
+                        });
     }
 
     private void doRequestWeather() {
@@ -140,5 +143,13 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
     }
 }
