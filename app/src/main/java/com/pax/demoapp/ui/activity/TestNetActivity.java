@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.view.RxView;
 import com.pax.demoapp.R;
 import com.pax.demoapp.ui.model.WeatherApi;
 import com.pax.demoapp.ui.model.WeatherRequest;
@@ -104,11 +105,10 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
         progressBar = findViewById(R.id.progress_bar);
         content = findViewById(R.id.content);
         doRequest();
-        request.setOnClickListener(view -> {
+        RxView.clicks(request).subscribe(o -> {
             requestResult.setText("");
             doRequestWeather();
         });
-
     }
 
     private void showProgress() {
