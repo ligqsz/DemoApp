@@ -100,7 +100,7 @@ public class RxJavaMergeTest {
     }
 
     /**
-     * 该操作符返回一个Obversable，它使用这个函数按顺序结合两个或多个Observables发射的数据项，
+     * 该操作符返回一个Observable，它使用这个函数按顺序结合两个或多个Observables发射的数据项，
      * 然后它发射这个函数返回的结果。它按照严格的顺序应用这个函数。
      * 它只发射与发射数据项最少的那个Observable一样多的数据，
      * 假如两个Observable数据分布为4项，5项，则最终合并是4项。

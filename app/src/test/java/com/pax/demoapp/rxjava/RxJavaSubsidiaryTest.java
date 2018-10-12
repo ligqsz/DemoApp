@@ -79,7 +79,8 @@ public class RxJavaSubsidiaryTest {
                 emitter.onNext(4);
                 emitter.onComplete();
             }
-        }).delaySubscription(2, TimeUnit.SECONDS)
+        })
+                .delaySubscription(2, TimeUnit.SECONDS)
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
@@ -204,7 +205,6 @@ public class RxJavaSubsidiaryTest {
      */
     @Test
     public void testSubscribeOn() {
-        StringBuffer sb = new StringBuffer();
         Observable.create(new ObservableOnSubscribe<Drawable>() {
             @Override
             public void subscribe(ObservableEmitter<Drawable> emitter) throws Exception {
@@ -238,8 +238,8 @@ public class RxJavaSubsidiaryTest {
     }
 
     /**
-     * 这个操作符通过这张图能更好的理解，这个操作符将原始Observable转换为另一个Observable，
-     * 后者发射一个标志替换前者的数据项，这个标志表示前者的两个连续发射物之间流逝的时间长度。
+     * todo
+     * 这个操作符将原始Observable转换为另一个Observable，后者发射一个标志替换前者的数据项，这个标志表示前者的两个连续发射物之间流逝的时间长度。
      * 新的Observable的第一个发射物表示的是在观察者订阅原始Observable到原始Observable发射它的第一项数据之间流逝的时间长度。
      * 不存在与原始Observable发射最后一项数据和发射onCompleted通知之间时长对应的发射物。
      * 通过日志发现，返回的Timed类型数据，包含时间间隔和值。
@@ -264,6 +264,7 @@ public class RxJavaSubsidiaryTest {
     }
 
     /**
+     * todo
      * 该操作符和TimeInterval一样最终发射的都是Timed类型数据。
      * 但是不同的是，改操作符发射数据每一项包含数据的原始发射时间（TimeInterval是时间间隔）
      */

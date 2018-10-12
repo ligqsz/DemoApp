@@ -4,6 +4,8 @@ import android.os.SystemClock;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -43,6 +45,44 @@ public class RxJavaFilterTest {
                 print(integer.toString());
             }
         });
+        print("----------------------------------------------------------");
+        List<Integer> list = new ArrayList<>();
+        for (int i = 1; i <= 1000; i++) {
+            list.add(i);
+        }
+        List<Integer> result = new ArrayList<>();
+        Observable.fromIterable(list)
+                .filter(new Predicate<Integer>() {
+                    @Override
+                    public boolean test(Integer integer) throws Exception {
+                        if (integer == 1) {
+                            return true;
+                        }
+                        for (Integer i = 1; i <= integer / 2; i++) {
+                            if (i != 1 && integer % i == 0) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                })
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        result.add(integer);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        print(throwable.toString());
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        print(result.toString());
+                    }
+                });
+
     }
 
     /**
@@ -88,7 +128,7 @@ public class RxJavaFilterTest {
     }
 
     /**
-     * 如果原始Observable在完成之前不是正好发射一次数据，它会抛出一个NoSuchElementException，
+     * 如果原始Observable在完成之前不是正好发射一次数据，它会抛出一个IllegalArgumentException，
      * 白话可以理解为发送数据是一项的话输出此项的值，若是多个数据则抛出异常执行onError()方法。
      */
     @Test
@@ -97,7 +137,7 @@ public class RxJavaFilterTest {
                 .filter(new Predicate<Integer>() {
                     @Override
                     public boolean test(Integer integer) throws Exception {
-                        return integer > 13;
+                        return integer > 12;
                     }
                 })
                 .singleElement()
@@ -148,11 +188,12 @@ public class RxJavaFilterTest {
                     }
                 });
 
+        // TODO: 2018/10/12
         Observable.interval(500, TimeUnit.MICROSECONDS)
                 .skip(2, TimeUnit.SECONDS)
                 .observeOn(Schedulers.io())
                 .subscribe(new Observer<Long>() {
-                    Long num;
+                    Long num = 0L;
 
                     @Override
                     public void onSubscribe(Disposable d) {

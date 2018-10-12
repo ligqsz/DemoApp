@@ -102,7 +102,7 @@ public class RxJavaTransformTest {
                         emitter.onNext(integer + 100 + "");
                         emitter.onComplete();
                     }
-                }).subscribeOn(Schedulers.newThread());
+                });
             }
         }).observeOn(Schedulers.io())
                 .subscribe(new Consumer<String>() {
@@ -132,12 +132,12 @@ public class RxJavaTransformTest {
                 return Observable.create(new ObservableOnSubscribe<String>() {
                     @Override
                     public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                        print("call: FlatMap ");
+                        print("call: ConcatMap ");
 //                        SystemClock.sleep(20);
                         emitter.onNext(integer + 100 + "");
                         emitter.onComplete();
                     }
-                }).subscribeOn(Schedulers.newThread());
+                });
             }
         }).observeOn(Schedulers.io())
                 .subscribe(new Consumer<String>() {
@@ -163,8 +163,8 @@ public class RxJavaTransformTest {
         Observable.fromArray(integers).switchMap(new Function<Integer, ObservableSource<String>>() {
             @Override
             public ObservableSource<String> apply(Integer integer) throws Exception {
-                print("call: FlatMap ");
-                return Observable.just((integer + 100) + "switchMap").subscribeOn(Schedulers.newThread());
+                print("call: SwitchMap ");
+                return Observable.just((integer + 100) + "switchMap");
             }
         }).observeOn(Schedulers.io())
                 .subscribe(new Consumer<String>() {
@@ -177,6 +177,11 @@ public class RxJavaTransformTest {
                     public void accept(Throwable throwable) throws Exception {
                         print(throwable.toString());
                     }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        print("complete");
+                    }
                 });
     }
 
@@ -185,20 +190,25 @@ public class RxJavaTransformTest {
      */
     @Test
     public void testGroupBy() {
-        Observable.range(1, 10).groupBy(new Function<Integer, Boolean>() {
+        Observable.range(1, 100).groupBy(new Function<Integer, String>() {
             @Override
-            public Boolean apply(Integer integer) throws Exception {
-                return integer % 3 == 0;
+            public String apply(Integer integer) throws Exception {
+                if (integer % 3 == 0) {
+                    return "i%3==0:";
+                } else if (integer % 2 == 0) {
+                    return "i%2==0&&i%3!=0:";
+                } else {
+                    return "rest:";
+                }
             }
-        }).subscribe(new Consumer<GroupedObservable<Boolean, Integer>>() {
+        }).subscribe(new Consumer<GroupedObservable<String, Integer>>() {
             @Override
-            public void accept(GroupedObservable<Boolean, Integer> booleanIntegerGroupedObservable) throws Exception {
+            public void accept(GroupedObservable<String, Integer> booleanIntegerGroupedObservable) throws Exception {
                 booleanIntegerGroupedObservable.toList().subscribe(new Consumer<List<Integer>>() {
                     @Override
                     public void accept(List<Integer> list) throws Exception {
                         print(booleanIntegerGroupedObservable.getKey() + "");
-                        Integer[] integers = new Integer[list.size()];
-                        print(Arrays.toString(list.toArray(integers)));
+                        print(list.toString());
                     }
                 });
             }
@@ -235,7 +245,34 @@ public class RxJavaTransformTest {
                 print(result.toString());
             }
         });
-
+        print("----------------------------------------------");
+        List<Integer> list = new ArrayList<>();
+        for (int i = 1; i <= 100; i++) {
+            list.add(i);
+        }
+        Observable.fromIterable(list)
+                .scan(new BiFunction<Integer, Integer, Integer>() {
+                    @Override
+                    public Integer apply(Integer integer, Integer integer2) throws Exception {
+                        return integer + integer2;
+                    }
+                })
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        result = integer;
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        print(throwable.toString());
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        print(result.toString());
+                    }
+                });
     }
 
     /**
@@ -245,7 +282,7 @@ public class RxJavaTransformTest {
      */
     @Test
     public void testBuffer() {
-        Observable.range(10, 10).buffer(5, 4).subscribe(new Consumer<List<Integer>>() {
+        Observable.range(10, 10).buffer(5, 2).subscribe(new Consumer<List<Integer>>() {
             @Override
             public void accept(List<Integer> list) throws Exception {
                 Integer[] integers = new Integer[list.size()];

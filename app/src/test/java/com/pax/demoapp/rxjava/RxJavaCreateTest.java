@@ -5,7 +5,9 @@ import com.pax.demoapp.ui.model.WeatherRequest;
 import org.junit.Test;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -108,6 +110,19 @@ public class RxJavaCreateTest {
                 print(request.toString());
             }
         });
+
+        print("--------------------------------------------------");
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            list.add(i);
+        }
+        Observable.just(list)
+                .subscribe(new Consumer<List<Integer>>() {
+                    @Override
+                    public void accept(List<Integer> list) throws Exception {
+                        print(list.toString());
+                    }
+                });
     }
 
     /**
@@ -219,7 +234,7 @@ public class RxJavaCreateTest {
      * todo
      * 该操作符按固定的时间间隔发射一个无限递增的整数序列，它接受一个表示时间间隔的参数和一个表示时间单位的参数，
      * 当然该操作符合Timer一样，是在computation调度器上执行的，若想更新UI需要指定Scheduler 为AndroidSchedulers.mainThread()
-     * 通过上面代码就会每隔1秒在tv上追加一个数字，并且会永远执行,如果不想执行,就需要解除订阅disposable.dispose();
+     * 通过下面代码就会每隔1秒在tv上追加一个数字，并且会永远执行,如果不想执行,就需要解除订阅disposable.dispose();
      */
     @Test
     public void testInterval() {
@@ -240,7 +255,7 @@ public class RxJavaCreateTest {
     public void testRepeat() {
         String[] strs = {"也许当初忙着微笑和哭泣", "忙着追逐天空中的流星"};
         Observable.fromArray(strs)
-                .repeat(2)
+                .repeat(10)
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
