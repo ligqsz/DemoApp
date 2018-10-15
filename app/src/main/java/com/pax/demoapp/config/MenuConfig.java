@@ -8,7 +8,7 @@ package com.pax.demoapp.config;
 public class MenuConfig {
     public static final String[] MENU_MAIN = {"弹出按钮框", "弹出ProgressBar", "跳转pager界面"
             , "测试改变软键盘Enter键", "ToolBarActivity", "OrmLite Demo", "Green Dao Demo"
-            , "custom view demo", "动画效果", "test", "Okhttp+Retrofit+RxJava请求测试"};
+            , "custom view demo", "动画效果", "test", "Okhttp+Retrofit+RxJava请求测试", "RxJava测试"};
 
     public static final String[] MENU_EDIT = {"actionDone", "actionGo", "actionNext"
             , "actionNone", "actionSearch", "actionSend"};
@@ -19,6 +19,7 @@ public class MenuConfig {
             , "update", "query(All)"};
 
     public static final String[] MENU_ANIM = {"属性动画", "触摸反馈动画", "揭露动画", "转场动画"};
+    public static final String[] MENU_RXJAVA = {"Create-Timer", "Create-Interval", "Filter-Skip", "Filter-Debounce"};
     public static final int DEFAULT_HEIGHT = 120;
     public static final String DB_NAME = "data";
     public static final boolean ENCRYPTED = false;

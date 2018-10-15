@@ -17,4 +17,8 @@ class Utils {
             return -1;
         }
     }
+
+    static void printLine() {
+        print("-----------------------------------------------");
+    }
 }

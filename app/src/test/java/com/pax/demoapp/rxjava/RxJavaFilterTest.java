@@ -2,6 +2,8 @@ package com.pax.demoapp.rxjava;
 
 import android.os.SystemClock;
 
+import com.pax.demoapp.utils.RJTestUtils;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -175,7 +177,7 @@ public class RxJavaFilterTest {
      * skip还有两个重载方法.skip(long time, TimeUnit unit)默认是在computation调度器上执行，
      * 如果要有更新UI操作需要通过observeOn方法指定为AndroidSchedulers.mainThread()，
      * 当然还有一个重载方法skip(long time, TimeUnit unit, Scheduler scheduler)可以指定调度器。
-     * 注意的一点是这两个重载方法的第一个参数不是跳过的数据数量，指的是时间。
+     * 注意的一点是这两个重载方法的第一个参数不是跳过的数据数量，指的是时间。{@link RJTestUtils#testSkip()}
      */
     @Test
     public void testSkip() {
@@ -188,8 +190,7 @@ public class RxJavaFilterTest {
                     }
                 });
 
-        // TODO: 2018/10/12
-        Observable.interval(500, TimeUnit.MICROSECONDS)
+        Observable.interval(500, TimeUnit.MILLISECONDS)
                 .skip(2, TimeUnit.SECONDS)
                 .observeOn(Schedulers.io())
                 .subscribe(new Observer<Long>() {
@@ -252,8 +253,8 @@ public class RxJavaFilterTest {
     }
 
     /**
-     * todo
-     * 你可以理解对源Observable间隔期产生的结果进行过滤，如果在这个规定的间隔期内没有别的结果产生，
+     * @see RJTestUtils#testDebounce()
+     * 可以理解对源Observable间隔期产生的结果进行过滤，如果在这个规定的间隔期内没有别的结果产生，
      * 则将这个结果提交给订阅者，否则忽略该结果
      */
     @Test
