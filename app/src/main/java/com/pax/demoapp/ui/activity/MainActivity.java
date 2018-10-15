@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuA
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        getWindow().setBackgroundDrawable(null);
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
     }
 

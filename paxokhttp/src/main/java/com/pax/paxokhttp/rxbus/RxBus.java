@@ -21,10 +21,12 @@ import io.reactivex.subjects.Subject;
 
 /**
  * RxBus
- * Created by gorden on 2016/5/12.
+ *
+ * @author gorden
+ * @date 2016/5/12
  * update 2017/3/1
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "SameParameterValue"})
 public class RxBus {
     public static final String LOG_BUS = "RXBUS_LOG";
     private static volatile RxBus defaultInstance;

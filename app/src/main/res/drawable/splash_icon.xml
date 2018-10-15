@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:opacity="opaque">
+    <!-- 背景颜色 -->
     <item android:drawable="@color/white"/>
-    <item>
+    <!-- 图片 -->
+    <item android:top="80dp">
         <bitmap
-            android:gravity="center"
+            android:gravity="top"
             android:src="@mipmap/qq"/>
     </item>
 </layer-list>
