@@ -27,7 +27,7 @@ import static com.pax.demoapp.rxjava.Utils.print;
  * @date 2018/10/11
  */
 
-@SuppressWarnings("Convert2Lambda")
+@SuppressWarnings({"Convert2Lambda", "ResultOfMethodCallIgnored", "RedundantThrows", "Anonymous2MethodRef"})
 public class RxJavaFilterTest {
     /**
      * 该操作符接收一个Predicate参数，我们可以在其中通过运用你自己的判断条件去判断我们要过滤的数据，
@@ -254,8 +254,10 @@ public class RxJavaFilterTest {
 
     /**
      * @see RJTestUtils#testDebounce()
-     * 可以理解对源Observable间隔期产生的结果进行过滤，如果在这个规定的间隔期内没有别的结果产生，
-     * 则将这个结果提交给订阅者，否则忽略该结果
+     * 当一个事件发送出来之后，在约定时间内没有再次发送这个事件，则发射这个事件，
+     * 如果再次触发了，则重新计算时间。
+     * 应用场景:在Edittext上添加监听，当里面输入的内容变化后进行搜索。
+     * 换句话说就是当用户的输入操作停止几秒钟之后再去搜索。
      */
     @Test
     public void testDebounce() {

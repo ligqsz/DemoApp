@@ -1,5 +1,7 @@
 package com.pax.demoapp.rxjava;
 
+import com.pax.demoapp.utils.RJTestUtils;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import static com.pax.demoapp.rxjava.Utils.print;
  * @date 2018/10/11
  */
 
-@SuppressWarnings("Convert2Lambda")
+@SuppressWarnings({"Convert2Lambda", "ResultOfMethodCallIgnored", "RedundantThrows", "Anonymous2MethodRef"})
 public class RxJavaMergeTest {
     /**
      * 该操作符可以将多个Observables的输出合并，就好像它们是一个单个的Observable一样，
@@ -30,13 +32,14 @@ public class RxJavaMergeTest {
     @Test
     public void testMerge() {
         Observable<Integer> just1 = Observable.just(1, 2);
-        Observable<Integer> just2 = Observable.just(6, 7);
+        Observable<Integer> just2 = Observable.just(6, 7, 9);
         Observable.merge(just1, just2)
                 .subscribe(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         if (integer % 3 == 0) {
-                            throw new IllegalArgumentException("error parameters");
+                            /* throw new IllegalArgumentException("error parameters");*/
+                            Thread.sleep(500);
                         }
                         print(integer.toString());
                     }
@@ -49,7 +52,7 @@ public class RxJavaMergeTest {
     }
 
     /**
-     * todo
+     * @see RJTestUtils#testMergeDelayError()
      * 对于merge操作符的任何一个的Observable发射了onError通知终止了，merge操作符生成的Observable也会立即以onError通知终止。
      * 如果你想让它继续发射数据，在最后才报告错误，可以使用mergeDelayError。
      * MergeDelayError的使用有个坑，就是subscribeOn和observeOn的调用问题，
@@ -139,7 +142,7 @@ public class RxJavaMergeTest {
         for (int i = 0; i < 5; i++) {
             list.add(10 + i);
         }
-        Observable.range(1, 3).startWith(list).subscribe(new Consumer<Integer>() {
+        Observable.range(1, 3).startWith(Observable.range(10, 5)).subscribe(new Consumer<Integer>() {
             @Override
             public void accept(Integer integer) throws Exception {
                 print(integer.toString());
@@ -203,9 +206,9 @@ public class RxJavaMergeTest {
     }
 
     /**
-     * todo
-     * 该操作符将一个发射多个Observables的Observable转换成另一个单独的Observable，后者发射那些Observables最近发射的数据项。
-     * 当有新的Observable开始订阅时，会取消之前的订阅，并将数据丢弃
+     * @see RJTestUtils#testSwitchOnNext()
+     * switchOnNext 运算符采用一个发出 observables 的observable ，返回的 observable 从最近的 observable 中发射出来。
+     * 当一个新的 observable 出现时，旧的被丢弃，而新的值被发出。
      */
     @Test
     public void testSwitchOnNext() {

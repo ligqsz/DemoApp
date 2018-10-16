@@ -24,7 +24,7 @@ import static com.pax.demoapp.rxjava.Utils.print;
  * @author ligq
  * @date 2018/10/10
  */
-@SuppressWarnings("Convert2Lambda")
+@SuppressWarnings({"Convert2Lambda", "ResultOfMethodCallIgnored", "RedundantThrows", "Anonymous2MethodRef"})
 public class RxJavaTransformTest {
 
     /**
@@ -156,6 +156,7 @@ public class RxJavaTransformTest {
     /**
      * 当原始Observable发射一个新的数据（Observable）时，它将取消订阅并停止监视产生执之前那个数据的Observable，只监视当前这一个.
      * 当数据源较多时，并不一定是只输出最后一项数据，有可能输出几项数据，也可能是全部。
+     * 应用场景:当用户的输入操作停止几秒钟之后再去搜索,使用switchMap来替代flatMap
      */
     @Test
     public void testSwitchMap() {
@@ -282,7 +283,7 @@ public class RxJavaTransformTest {
      */
     @Test
     public void testBuffer() {
-        Observable.range(10, 10).buffer(5, 2).subscribe(new Consumer<List<Integer>>() {
+        Observable.range(10, 10).buffer(5, 3).subscribe(new Consumer<List<Integer>>() {
             @Override
             public void accept(List<Integer> list) throws Exception {
                 Integer[] integers = new Integer[list.size()];

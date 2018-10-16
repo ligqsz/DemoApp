@@ -37,7 +37,7 @@ public class PagerActivity extends AppCompatActivity implements IActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 pager.setCurrentItem(tab.getPosition());
                 View view = tab.getCustomView();
-                if (null != view && view instanceof TextView) {
+                if (view instanceof TextView) {
                     setTextColorAndSize(R.color.red, 16, ((TextView) view));
                 }
             }
@@ -45,7 +45,7 @@ public class PagerActivity extends AppCompatActivity implements IActivity {
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 View view = tab.getCustomView();
-                if (null != view && view instanceof TextView) {
+                if (view instanceof TextView) {
                     setTextColorAndSize(R.color.colorPrimary, 14, ((TextView) view));
                 }
             }

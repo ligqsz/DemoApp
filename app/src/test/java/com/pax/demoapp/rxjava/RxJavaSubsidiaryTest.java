@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 
 import com.pax.demoapp.DemoApp;
 import com.pax.demoapp.R;
+import com.pax.demoapp.utils.RJTestUtils;
 
 import org.junit.Test;
 
@@ -34,10 +35,10 @@ import static com.pax.demoapp.rxjava.Utils.print;
  * @date 2018/10/11
  */
 
-@SuppressWarnings("Convert2Lambda")
+@SuppressWarnings({"Convert2Lambda", "ResultOfMethodCallIgnored", "RedundantThrows", "Anonymous2MethodRef"})
 public class RxJavaSubsidiaryTest {
     /**
-     * todo
+     * @see RJTestUtils#testDelay()
      * 该操作符让原始Observable在发射每项数据之前都暂停一段指定的时间。它接受一个定义时长的参数（包括long型数据和单位）。
      * 每当原始Observable发射一项数据，delay就启动一个定时器，当定时器过了给定的时间段时，delay返回的Observable发射相同的数据项。
      * 他默认是在computation调度器上执行，当然也有重载方法可以指定调度器，若发射数据后有更新UI操作需将调度器指定AndroidSchedulers.mainThread()。
@@ -64,7 +65,6 @@ public class RxJavaSubsidiaryTest {
     }
 
     /**
-     * todo
      * 该操作符也是delay的一种实现，它和delay的区别是delay是延迟数据的发送，而此操作符是延迟数据的注册，
      * 指定延迟时间的重载方法是执行在computation调度器的。
      */
@@ -196,7 +196,7 @@ public class RxJavaSubsidiaryTest {
     }
 
     /**
-     * todo
+     * @see RJTestUtils#testSubscribeOn(LinearLayout)
      * ObservableOn指定Observable在一个特定的调度器上发送通知给观察者 (调用观察者的onNext, onCompleted, onError方法)，
      * 当遇到一个异常时ObserveOn会立即向前传递这个onError终止通知，它不会等待慢速消费的Observable接受任何之前它已经收到但还没有发射的数据项。
      * 这可能意味着onError通知会跳到（并吞掉）原始Observable发射的数据项前面。
@@ -238,7 +238,7 @@ public class RxJavaSubsidiaryTest {
     }
 
     /**
-     * todo
+     * @see RJTestUtils#testTimeInterval()
      * 这个操作符将原始Observable转换为另一个Observable，后者发射一个标志替换前者的数据项，这个标志表示前者的两个连续发射物之间流逝的时间长度。
      * 新的Observable的第一个发射物表示的是在观察者订阅原始Observable到原始Observable发射它的第一项数据之间流逝的时间长度。
      * 不存在与原始Observable发射最后一项数据和发射onCompleted通知之间时长对应的发射物。
@@ -264,7 +264,7 @@ public class RxJavaSubsidiaryTest {
     }
 
     /**
-     * todo
+     * @see RJTestUtils#testTimestamp()
      * 该操作符和TimeInterval一样最终发射的都是Timed类型数据。
      * 但是不同的是，改操作符发射数据每一项包含数据的原始发射时间（TimeInterval是时间间隔）
      */

@@ -68,8 +68,8 @@ public class DemoApp extends Application {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                LogUtils.d(TAG, "onActivityCreated: " + activity.getLocalClassName());
-                LogUtils.d(TAG, "Pid: " + Process.myPid());
+//                LogUtils.d(TAG, "onActivityCreated: " + activity.getLocalClassName());
+//                LogUtils.d(TAG, "Pid: " + Process.myPid());
                 activityLinkedList.add(activity);
                 ScreenUtils.adaptScreen4VerticalSlide(activity, 360);
                 if (activity instanceof IActivity) {
@@ -82,32 +82,32 @@ public class DemoApp extends Application {
 
             @Override
             public void onActivityStarted(Activity activity) {
-                LogUtils.d(TAG, "onActivityStarted: " + activity.getLocalClassName());
+//                LogUtils.d(TAG, "onActivityStarted: " + activity.getLocalClassName());
             }
 
             @Override
             public void onActivityResumed(Activity activity) {
-                LogUtils.d(TAG, "onActivityResumed: " + activity.getLocalClassName());
+//                LogUtils.d(TAG, "onActivityResumed: " + activity.getLocalClassName());
             }
 
             @Override
             public void onActivityPaused(Activity activity) {
-                LogUtils.d(TAG, "onActivityPaused: " + activity.getLocalClassName());
+//                LogUtils.d(TAG, "onActivityPaused: " + activity.getLocalClassName());
             }
 
             @Override
             public void onActivityStopped(Activity activity) {
-                LogUtils.d(TAG, "onActivityStopped: " + activity.getLocalClassName());
+//                LogUtils.d(TAG, "onActivityStopped: " + activity.getLocalClassName());
             }
 
             @Override
             public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-                LogUtils.d(TAG, "onActivitySaveInstanceState: " + activity.getLocalClassName());
+//                LogUtils.d(TAG, "onActivitySaveInstanceState: " + activity.getLocalClassName());
             }
 
             @Override
             public void onActivityDestroyed(Activity activity) {
-                LogUtils.d(TAG, "onActivityDestroyed: " + activity.getLocalClassName());
+//                LogUtils.d(TAG, "onActivityDestroyed: " + activity.getLocalClassName());
                 activityLinkedList.remove(activity);
             }
         });
