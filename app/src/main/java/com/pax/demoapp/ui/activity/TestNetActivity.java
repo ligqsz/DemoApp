@@ -1,5 +1,6 @@
 package com.pax.demoapp.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -11,17 +12,31 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.NetworkUtils;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.pax.demoapp.R;
 import com.pax.demoapp.ui.model.WeatherApi;
 import com.pax.demoapp.ui.model.WeatherRequest;
+import com.pax.demoapp.ui.model.WeatherResponse;
 import com.pax.demoapp.utils.LogUtils;
 import com.pax.paxokhttp.okhttp.RetrofitHelper;
 import com.pax.paxokhttp.okhttp.RxHelper;
 import com.pax.paxokhttp.rxbus.RxBus;
 
-import io.reactivex.disposables.Disposable;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
+
+@SuppressWarnings({"Convert2Lambda", "RedundantThrows"})
 public class TestNetActivity extends AppCompatActivity implements IActivity {
 
     private EditText city;
@@ -32,6 +47,7 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
     private String url;
     private String key;
     private Disposable disposable;
+    private boolean isInit = true;
 
     @Override
     public int getLayoutId() {
@@ -50,26 +66,70 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
     }
 
     private void doRequest() {
+        LogUtils.e("-----------------------------------");
         showProgress();
-        disposable = RetrofitHelper.createApi(WeatherApi.class, url)
-                .doGet(city.getText().toString(), "", "", key)
-                .compose(RxHelper.rxSchedulerHelper())
-                .doOnNext(responseBody ->
-                        LogUtils.d("doOnNext"))
-                .subscribe(responseBody -> {
-                            requestResult.setText(responseBody.string());
-                            hideProgress();
+        disposable();
+        disposable = getWeatherResponseObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<WeatherResponse>() {
+                    @Override
+                    public void accept(WeatherResponse weatherResponse) throws Exception {
+                        if (weatherResponse != null && weatherResponse.getResult() != null) {
+                            requestResult.setText(weatherResponse.getResult().toString());
+                        } else if (weatherResponse != null) {
+                            requestResult.setText(weatherResponse.getReason());
+                        } else {
+                            requestResult.setText("查询不到该城市的信息");
                         }
-                        , throwable -> {
-                            requestResult.setText(throwable.toString());
-                            hideProgress();
-                        });
+                        hideProgress();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestResult.setText(throwable.toString());
+                        hideProgress();
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        LogUtils.d("complete!!");
+                        hideProgress();
+                    }
+                });
+    }
+
+    private Observable<WeatherResponse> getWeatherResponseObservable() {
+        return RxTextView.textChanges(city)
+                .debounce(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .filter(new Predicate<CharSequence>() {
+                    @Override
+                    public boolean test(CharSequence charSequence) throws Exception {
+                        LogUtils.d("filter:" + (charSequence.toString().trim().length() > 0));
+                        LogUtils.d("filter:NetworkUtils.getMobileDataEnabled():" + (NetworkUtils.getMobileDataEnabled()));
+                        LogUtils.d("filter: NetworkUtils.getWifiEnabled():" + (NetworkUtils.getWifiEnabled()));
+                        LogUtils.d("filter: isInit:" + isInit);
+                        return charSequence.toString().trim().length() > 0
+                                && (NetworkUtils.getMobileDataEnabled() || NetworkUtils.getWifiEnabled()
+                                && !isInit);
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .switchMap(new Function<CharSequence, ObservableSource<WeatherResponse>>() {
+                    @Override
+                    public ObservableSource<WeatherResponse> apply(CharSequence charSequence) throws Exception {
+                        LogUtils.d("-------------------网络请求");
+                        return RetrofitHelper.createApi(WeatherApi.class, url)
+                                .doGetWeather(charSequence.toString(), "", "", key);
+                    }
+                });
     }
 
     private void doRequestWeather() {
         showProgress();
+        disposable();
         if (requestMode == 1) {
-            RetrofitHelper.createApi(WeatherApi.class, url)
+            disposable = RetrofitHelper.createApi(WeatherApi.class, url)
                     .doGetWeather(city.getText().toString(), "", "", key)
                     .compose(RxHelper.rxSchedulerHelper())
                     .subscribe(weatherResponse -> requestResult.setText(weatherResponse.getResult().toString())
@@ -83,7 +143,7 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
             request.setCityname(city.getText().toString());
             request.setDtype("1");
             request.setFormat("1");
-            RetrofitHelper.createApi(WeatherApi.class, url)
+            disposable = RetrofitHelper.createApi(WeatherApi.class, url)
                     .doPost(key, request)
                     .compose(RxHelper.rxSchedulerHelper())
                     .subscribe(rsp -> requestResult.setText(rsp.string())
@@ -95,6 +155,7 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
         }
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void initView() {
         RxBus.get().send("I'm from TestNetActivity");
@@ -104,11 +165,36 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
 
         progressBar = findViewById(R.id.progress_bar);
         content = findViewById(R.id.content);
-        doRequest();
+        //noinspection ResultOfMethodCallIgnored
         RxView.clicks(request).subscribe(o -> {
             requestResult.setText("");
             doRequestWeather();
         });
+        if (isInit) {
+            doRequestInit();
+        }
+        doRequest();
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @SuppressLint("CheckResult")
+    private void doRequestInit() {
+        showProgress();
+        RetrofitHelper.createApi(WeatherApi.class, url)
+                .doGet(city.getText().toString(), "", "", key)
+                .compose(RxHelper.rxSchedulerHelper())
+                .doOnNext(responseBody ->
+                        LogUtils.d("doOnNext"))
+                .subscribe(responseBody -> {
+                            requestResult.setText(responseBody.string());
+                            hideProgress();
+                            isInit = false;
+                        }
+                        , throwable -> {
+                            requestResult.setText(throwable.toString());
+                            hideProgress();
+                            isInit = false;
+                        });
     }
 
     private void showProgress() {
@@ -148,8 +234,13 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        disposable();
+    }
+
+    private void disposable() {
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
+        disposable = null;
     }
 }

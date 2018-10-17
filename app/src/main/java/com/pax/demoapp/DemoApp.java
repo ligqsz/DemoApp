@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Process;
 
 import com.pax.demoapp.config.MenuConfig;
 import com.pax.demoapp.db.greendao.manager.DaoManager;
@@ -148,5 +147,9 @@ public class DemoApp extends Application {
         Intent intent = new Intent(this, clazz);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    public Activity getCurrentActivity() {
+        return activityLinkedList.get(activityLinkedList.size() - 1);
     }
 }

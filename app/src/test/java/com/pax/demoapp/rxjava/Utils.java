@@ -11,8 +11,12 @@ class Utils {
     }
 
     static Integer parIntSafe(char c) {
+        return parIntSafe(Character.toString(c));
+    }
+
+    static Integer parIntSafe(String s) {
         try {
-            return Integer.parseInt(Character.toString(c));
+            return Integer.parseInt(s);
         } catch (Exception e) {
             return -1;
         }
