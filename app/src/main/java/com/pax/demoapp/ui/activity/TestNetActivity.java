@@ -1,6 +1,8 @@
 package com.pax.demoapp.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -36,6 +38,9 @@ import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * @author ligq
+ */
 @SuppressWarnings({"Convert2Lambda", "RedundantThrows"})
 public class TestNetActivity extends AppCompatActivity implements IActivity {
 
@@ -47,7 +52,7 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
     private String url;
     private String key;
     private Disposable disposable;
-    private boolean isInit = true;
+    private boolean networkError;
 
     @Override
     public int getLayoutId() {
@@ -63,6 +68,7 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
         requestMode = 1;
         url = "http://v.juhe.cn/weather/";
         key = "1c353f780748ee3e9616da568d846038";
+        networkError = !NetworkUtils.getMobileDataEnabled() && !NetworkUtils.getWifiEnabled();
     }
 
     private void doRequest() {
@@ -82,12 +88,15 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
                             requestResult.setText("查询不到该城市的信息");
                         }
                         hideProgress();
+                        networkError = false;
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         requestResult.setText(throwable.toString());
                         hideProgress();
+                        networkError = true;
+                        doRequest();
                     }
                 }, new Action() {
                     @Override
@@ -105,13 +114,16 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
                 .filter(new Predicate<CharSequence>() {
                     @Override
                     public boolean test(CharSequence charSequence) throws Exception {
-                        LogUtils.d("filter:" + (charSequence.toString().trim().length() > 0));
-                        LogUtils.d("filter:NetworkUtils.getMobileDataEnabled():" + (NetworkUtils.getMobileDataEnabled()));
-                        LogUtils.d("filter: NetworkUtils.getWifiEnabled():" + (NetworkUtils.getWifiEnabled()));
-                        LogUtils.d("filter: isInit:" + isInit);
-                        return charSequence.toString().trim().length() > 0
-                                && (NetworkUtils.getMobileDataEnabled() || NetworkUtils.getWifiEnabled()
-                                && !isInit);
+                        LogUtils.d("filter:length:" + (charSequence.toString().trim().length() > 0));
+                        LogUtils.d("filter:networkError:" + networkError);
+                        if (networkError) {
+                            hideProgress();
+                            requestResult.setText("网络连接错误,请重试!");
+                        }
+                        boolean b = charSequence.toString().trim().length() > 0
+                                && !networkError;
+                        networkError = false;
+                        return b;
                     }
                 })
                 .observeOn(Schedulers.io())
@@ -170,31 +182,6 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
             requestResult.setText("");
             doRequestWeather();
         });
-        if (isInit) {
-            doRequestInit();
-        }
-        doRequest();
-    }
-
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    @SuppressLint("CheckResult")
-    private void doRequestInit() {
-        showProgress();
-        RetrofitHelper.createApi(WeatherApi.class, url)
-                .doGet(city.getText().toString(), "", "", key)
-                .compose(RxHelper.rxSchedulerHelper())
-                .doOnNext(responseBody ->
-                        LogUtils.d("doOnNext"))
-                .subscribe(responseBody -> {
-                            requestResult.setText(responseBody.string());
-                            hideProgress();
-                            isInit = false;
-                        }
-                        , throwable -> {
-                            requestResult.setText(throwable.toString());
-                            hideProgress();
-                            isInit = false;
-                        });
     }
 
     private void showProgress() {
@@ -232,8 +219,14 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        doRequest();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         disposable();
     }
 
