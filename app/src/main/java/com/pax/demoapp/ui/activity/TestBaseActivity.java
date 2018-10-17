@@ -4,8 +4,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.pax.demoapp.R;
 import com.pax.demoapp.template.base.BaseActivity;
+import com.pax.demoapp.utils.StatusBarUtil;
 
 import java.util.Random;
 
@@ -22,9 +24,11 @@ public class TestBaseActivity extends BaseActivity {
     @Override
     public void init(Bundle savedInstanceState) {
         setIsShowStatusBar(true);
+        LogUtils.d("test base activity");
         setToolBar(R.color.greed, "测试Base", R.color.white, 20
                 , R.menu.menu_test_base, R.drawable.ic_back_white_24dp);
         setStatusBarColor(R.color.greed);
+        StatusBarUtil.setDarkMode(this);
     }
 
     @Override
@@ -32,6 +36,11 @@ public class TestBaseActivity extends BaseActivity {
         switch (item.getItemId()) {
             case R.id.action_state_bg:
                 setStatusBarColor(Color.parseColor(randomColor()));
+                if (new Random().nextInt(10) % 2 == 0) {
+                    StatusBarUtil.setLightMode(this);
+                } else {
+                    StatusBarUtil.setDarkMode(this);
+                }
                 break;
             case R.id.action_toolbar_bg:
                 setToolBarBg(Color.parseColor(randomColor()));

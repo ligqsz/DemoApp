@@ -1,4 +1,4 @@
-package com.pax.demoapp.common.adapter;
+package com.pax.demoapp.common.adapter.list;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;

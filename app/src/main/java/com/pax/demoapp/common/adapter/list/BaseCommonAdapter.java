@@ -1,4 +1,4 @@
-package com.pax.demoapp.common.adapter;
+package com.pax.demoapp.common.adapter.list;
 
 import android.content.Context;
 import android.support.annotation.IntRange;
