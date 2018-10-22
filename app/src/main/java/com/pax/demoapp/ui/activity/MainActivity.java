@@ -131,6 +131,9 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuA
             case 12:
                 ActivityUtils.jumpActivity(TestBaseActivity.class);
                 break;
+            case 13:
+                ActivityUtils.jumpActivity(ScreenAdjustActivity.class);
+                break;
             default:
                 break;
         }

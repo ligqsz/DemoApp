@@ -337,14 +337,13 @@ public class ScreenUtils {
     private static void adaptScreen(final Activity activity,
                                     final float sizeInDp,
                                     final boolean isVerticalSlide) {
-        final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
         final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
         if (isVerticalSlide) {
             activityDm.density = activityDm.widthPixels / sizeInDp;
         } else {
             activityDm.density = activityDm.heightPixels / sizeInDp;
         }
-        activityDm.scaledDensity = activityDm.density * (appDm.scaledDensity / appDm.density);
+        activityDm.scaledDensity = activityDm.density;
         activityDm.densityDpi = (int) (160 * activityDm.density);
     }
 }

@@ -11,7 +11,6 @@ import com.pax.demoapp.ui.activity.EditTextActivity;
 import com.pax.demoapp.ui.activity.IActivity;
 import com.pax.demoapp.utils.LogUtils;
 import com.pax.demoapp.utils.OtherUtils;
-import com.pax.demoapp.utils.ScreenUtils;
 import com.pax.demoapp.utils.Utils;
 import com.pax.paxokhttp.okhttp.AppUtils;
 
@@ -70,7 +69,6 @@ public class DemoApp extends Application {
 //                LogUtils.d(TAG, "onActivityCreated: " + activity.getLocalClassName());
 //                LogUtils.d(TAG, "Pid: " + Process.myPid());
                 activityLinkedList.add(activity);
-                ScreenUtils.adaptScreen4VerticalSlide(activity, 360);
                 if (activity instanceof IActivity) {
                     IActivity iActivity = (IActivity) activity;
                     activity.setContentView(iActivity.getLayoutId());

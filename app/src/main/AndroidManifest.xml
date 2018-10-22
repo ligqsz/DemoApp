@@ -63,6 +63,7 @@
         <activity android:name=".ui.activity.TestNetActivity" />
         <activity android:name=".ui.activity.RxJavaActivity" />
         <activity android:name=".ui.activity.TestBaseActivity" />
+        <activity android:name=".ui.activity.ScreenAdjustActivity"/>
     </application>
 
 </manifest>
