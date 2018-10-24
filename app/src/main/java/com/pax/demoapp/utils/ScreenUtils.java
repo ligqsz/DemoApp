@@ -338,12 +338,15 @@ public class ScreenUtils {
                                     final float sizeInDp,
                                     final boolean isVerticalSlide) {
         final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
+        DisplayMetrics appDm = activity.getApplication().getResources().getDisplayMetrics();
+        float appDmScaleDensity = appDm.scaledDensity;
+        float appDmDensity = appDm.density;
         if (isVerticalSlide) {
             activityDm.density = activityDm.widthPixels / sizeInDp;
         } else {
             activityDm.density = activityDm.heightPixels / sizeInDp;
         }
-        activityDm.scaledDensity = activityDm.density;
+        activityDm.scaledDensity = activityDm.density * (appDmScaleDensity / appDmDensity);
         activityDm.densityDpi = (int) (160 * activityDm.density);
     }
 }
