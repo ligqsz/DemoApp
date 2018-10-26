@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/JDimensUtils/JDimensUtils.iml" filepath="$PROJECT_DIR$/JDimensUtils/JDimensUtils.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/paxokhttp/paxokhttp.iml" filepath="$PROJECT_DIR$/paxokhttp/paxokhttp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viabus_library/viabus_library.iml" filepath="$PROJECT_DIR$/viabus_library/viabus_library.iml" />
     </modules>
   </component>
 </project>

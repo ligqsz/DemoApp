@@ -49,7 +49,7 @@ public class DemoApp extends Application {
     private void initUtils() {
         Utils.init(this);
         boolean showLog = 0 == OtherUtils.getMetaInt("SHOW_LOG");
-        LogUtils.getConfig().setLogSwitch(showLog).setLog2FileSwitch(showLog);
+        LogUtils.getConfig().setShowLog(showLog);
     }
 
     private void initExecutorService() {

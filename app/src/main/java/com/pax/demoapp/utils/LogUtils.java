@@ -23,8 +23,6 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.pax.demoapp.BuildConfig;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -215,7 +213,11 @@ public class LogUtils {
             if (contents.length == 1) {
                 Object object = contents[0];
                 if (object != null) {
-                    body = object.toString();
+                    if (object instanceof Throwable) {
+                        body = Log.getStackTraceString((Throwable) object);
+                    } else {
+                        body = object.toString();
+                    }
                 }
             } else {
                 StringBuilder sb = new StringBuilder();
@@ -411,7 +413,7 @@ public class LogUtils {
                     mDefaultDir = Utils.getApp().getCacheDir() + FILE_SEP + "log" + FILE_SEP;
                 }
             }
-            showLog = BuildConfig.DEBUG;
+            showLog = true;
             saveLog = false;
         }
 
