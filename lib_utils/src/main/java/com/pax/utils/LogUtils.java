@@ -1,20 +1,4 @@
-/*
- *
- * ============================================================================
- * PAX Computer Technology(Shenzhen) CO., LTD PROPRIETARY INFORMATION
- * This software is supplied under the terms of a license agreement or nondisclosure
- * agreement with PAX Computer Technology(Shenzhen) CO., LTD and may not be copied or
- * disclosed except in accordance with the terms in that agreement.
- *     Copyright (C) 2018-?  PAX Computer Technology(Shenzhen) CO., LTD All rights reserved.
- * Description:
- * Revision History:
- * Date	             Author	                Action
- * 20181024   	     ligq           	Create/Add/Modify/Delete
- * ============================================================================
- *
- */
-
-package com.pax.demoapp.utils;
+package com.pax.utils;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -484,7 +468,7 @@ public class LogUtils {
                     mDefaultDir = Utils.getApp().getCacheDir() + FILE_SEP + "log" + FILE_SEP;
                 }
             }
-            showLog = false;
+            showLog = true;
             saveLog = false;
         }
 
