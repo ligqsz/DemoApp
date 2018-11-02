@@ -1,1 +1,1 @@
-include ':app', ':JDimensUtils', ':paxokhttp', ':viabus_library', ':lib_utils'
+include ':app', ':JDimensUtils', ':paxokhttp', ':lib_utils'
