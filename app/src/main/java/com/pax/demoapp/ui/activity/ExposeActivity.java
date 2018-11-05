@@ -3,21 +3,22 @@ package com.pax.demoapp.ui.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 
 import com.pax.demoapp.R;
-import com.pax.demoapp.utils.LogUtils;
+import com.pax.demoapp.template.base.BaseActivity;
+import com.pax.utils.LogUtils;
 
 /**
  * 揭露动画
  *
  * @author ligq
  */
-public class ExposeActivity extends AppCompatActivity implements IActivity {
+public class ExposeActivity extends BaseActivity {
 
     private View puppet;
     private FloatingActionButton fab;
@@ -29,11 +30,11 @@ public class ExposeActivity extends AppCompatActivity implements IActivity {
     }
 
     @Override
-    public void initData() {
+    public void init(Bundle savedInstanceState) {
         flag = true;
+        initView();
     }
 
-    @Override
     public void initView() {
         fab = findViewById(R.id.fab);
         puppet = findViewById(R.id.view_puppet);

@@ -1,7 +1,6 @@
 package com.pax.demoapp.ui.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -12,6 +11,7 @@ import com.pax.demoapp.R;
 import com.pax.demoapp.config.IntentKeys;
 import com.pax.demoapp.db.orm.bean.Student;
 import com.pax.demoapp.db.orm.dao.StudentDao;
+import com.pax.demoapp.template.base.BaseActivity;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -24,7 +24,7 @@ import static com.pax.demoapp.utils.OtherUtils.getRandomWord;
 /**
  * @author ligq
  */
-public class OrmResultActivity extends AppCompatActivity implements IActivity {
+public class OrmResultActivity extends BaseActivity {
     private List<Student> students;
     private String result = "";
 
@@ -34,6 +34,11 @@ public class OrmResultActivity extends AppCompatActivity implements IActivity {
     }
 
     @Override
+    public void init(Bundle savedInstanceState) {
+        initData();
+        initView();
+    }
+
     public void initData() {
         students = new ArrayList<>();
         StudentDao dao = StudentDao.getInstance();
@@ -98,7 +103,6 @@ public class OrmResultActivity extends AppCompatActivity implements IActivity {
         }
     }
 
-    @Override
     public void initView() {
         RecyclerView rvResult = findViewById(R.id.rv_orm_result);
         TextView tvResult = findViewById(R.id.operate_result);

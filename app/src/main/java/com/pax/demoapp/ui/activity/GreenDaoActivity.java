@@ -17,7 +17,7 @@ import com.pax.demoapp.db.greendao.bean.Student;
 import com.pax.demoapp.db.greendao.bean.StudentDao;
 import com.pax.demoapp.db.greendao.manager.DaoManager;
 import com.pax.demoapp.ui.adapter.MenuAdapter;
-import com.pax.demoapp.utils.LogUtils;
+import com.pax.utils.LogUtils;
 import com.pax.demoapp.utils.OtherUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;

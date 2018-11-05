@@ -6,7 +6,8 @@ import android.widget.LinearLayout;
 
 import com.pax.demoapp.DemoApp;
 import com.pax.demoapp.R;
-import com.pax.demoapp.utils.RJTestUtils;
+import com.pax.demoapp.utils.RjTestUtils;
+import com.pax.utils.Utils;
 
 import org.junit.Test;
 
@@ -28,7 +29,7 @@ import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.schedulers.Timed;
 
-import static com.pax.demoapp.rxjava.Utils.print;
+import static com.pax.demoapp.rxjava.PrintUtils.print;
 
 /**
  * @author ligq
@@ -38,7 +39,7 @@ import static com.pax.demoapp.rxjava.Utils.print;
 @SuppressWarnings({"Convert2Lambda", "ResultOfMethodCallIgnored", "RedundantThrows", "Anonymous2MethodRef"})
 public class RxJavaSubsidiaryTest {
     /**
-     * @see RJTestUtils#testDelay()
+     * @see RjTestUtils#testDelay()
      * 该操作符让原始Observable在发射每项数据之前都暂停一段指定的时间。它接受一个定义时长的参数（包括long型数据和单位）。
      * 每当原始Observable发射一项数据，delay就启动一个定时器，当定时器过了给定的时间段时，delay返回的Observable发射相同的数据项。
      * 他默认是在computation调度器上执行，当然也有重载方法可以指定调度器，若发射数据后有更新UI操作需将调度器指定AndroidSchedulers.mainThread()。
@@ -196,7 +197,7 @@ public class RxJavaSubsidiaryTest {
     }
 
     /**
-     * @see RJTestUtils#testSubscribeOn(LinearLayout)
+     * @see RjTestUtils#testSubscribeOn(LinearLayout)
      * ObservableOn指定Observable在一个特定的调度器上发送通知给观察者 (调用观察者的onNext, onCompleted, onError方法)，
      * 当遇到一个异常时ObserveOn会立即向前传递这个onError终止通知，它不会等待慢速消费的Observable接受任何之前它已经收到但还没有发射的数据项。
      * 这可能意味着onError通知会跳到（并吞掉）原始Observable发射的数据项前面。
@@ -208,7 +209,7 @@ public class RxJavaSubsidiaryTest {
         Observable.create(new ObservableOnSubscribe<Drawable>() {
             @Override
             public void subscribe(ObservableEmitter<Drawable> emitter) throws Exception {
-                Drawable drawable = DemoApp.getApp().getDrawable(R.mipmap.ic_launcher);
+                Drawable drawable = Utils.getApp().getDrawable(R.mipmap.ic_launcher);
                 emitter.onNext(drawable);
                 emitter.onComplete();
             }
@@ -220,7 +221,7 @@ public class RxJavaSubsidiaryTest {
                 .map(new Function<Drawable, ImageView>() {
                     @Override
                     public ImageView apply(Drawable drawable) throws Exception {
-                        ImageView imageView = new ImageView(DemoApp.getApp());
+                        ImageView imageView = new ImageView(Utils.getApp());
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         imageView.setLayoutParams(params);
                         imageView.setImageDrawable(drawable);
@@ -232,13 +233,13 @@ public class RxJavaSubsidiaryTest {
                 .subscribe(new Consumer<ImageView>() {
                     @Override
                     public void accept(ImageView imageView) throws Exception {
-                        new LinearLayout(DemoApp.getApp()).addView(imageView);
+                        new LinearLayout(Utils.getApp()).addView(imageView);
                     }
                 });
     }
 
     /**
-     * @see RJTestUtils#testTimeInterval()
+     * @see RjTestUtils#testTimeInterval()
      * 这个操作符将原始Observable转换为另一个Observable，后者发射一个标志替换前者的数据项，这个标志表示前者的两个连续发射物之间流逝的时间长度。
      * 新的Observable的第一个发射物表示的是在观察者订阅原始Observable到原始Observable发射它的第一项数据之间流逝的时间长度。
      * 不存在与原始Observable发射最后一项数据和发射onCompleted通知之间时长对应的发射物。
@@ -264,7 +265,7 @@ public class RxJavaSubsidiaryTest {
     }
 
     /**
-     * @see RJTestUtils#testTimestamp()
+     * @see RjTestUtils#testTimestamp()
      * 该操作符和TimeInterval一样最终发射的都是Timed类型数据。
      * 但是不同的是，改操作符发射数据每一项包含数据的原始发射时间（TimeInterval是时间间隔）
      */

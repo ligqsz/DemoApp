@@ -1,4 +1,4 @@
-package com.pax.demoapp.utils;
+package com.pax.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -39,7 +39,7 @@ public class ScreenUtils {
      */
     @SuppressLint("ObsoleteSdkInt")
     public static int getScreenWidth() {
-        WindowManager wm = (WindowManager) com.blankj.utilcode.util.Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
         if (wm == null) {
             return Utils.getApp().getResources().getDisplayMetrics().widthPixels;
         }

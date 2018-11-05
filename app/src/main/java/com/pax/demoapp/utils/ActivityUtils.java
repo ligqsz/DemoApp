@@ -1,14 +1,15 @@
 package com.pax.demoapp.utils;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.pax.demoapp.DemoApp;
 import com.pax.demoapp.ui.activity.MainActivity;
+import com.pax.utils.Utils;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class ActivityUtils {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void exitAPP1() {
-        ActivityManager activityManager = (ActivityManager) DemoApp.getApp().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager activityManager = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
         assert activityManager != null;
         List<ActivityManager.AppTask> appTaskList = activityManager.getAppTasks();
         for (ActivityManager.AppTask appTask : appTaskList) {
@@ -48,10 +49,11 @@ public class ActivityUtils {
      * 缺点:采用这种方法，遇到Activity不是经过正常生命周期创建和结束的情况，是达不到退出的效果的
      */
     public static void exitApp2() {
-        //打印存储的activity
-        DemoApp.getApp().showList();
         //销毁存储的activity
-        DemoApp.getApp().exitAppList();
+        List<Activity> activityList = Utils.getActivityList();
+        for (Activity activity : activityList) {
+            activity.finish();
+        }
     }
 
     /**
@@ -61,22 +63,21 @@ public class ActivityUtils {
      * 这里必须要重写入口Activity的onNewIntent方法,{@link MainActivity#onNewIntent(Intent)}
      */
     public static void exitAPP3() {
-        Intent intent = new Intent(DemoApp.getApp(), MainActivity.class);
+        Intent intent = new Intent(Utils.getApp(), MainActivity.class);
         intent.putExtra("exit", true);
-        DemoApp.getApp().startActivity(intent);
-        System.exit(0);
+        Utils.getApp().startActivity(intent);
     }
 
     public static void jumpActivity(Bundle bundle, Class clazz) {
-        Intent intent = new Intent(DemoApp.getApp(), clazz);
+        Intent intent = new Intent(Utils.getApp(), clazz);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtras(bundle);
-        DemoApp.getApp().startActivity(intent);
+        Utils.getApp().startActivity(intent);
     }
 
     public static void jumpActivity(Class clazz) {
-        Intent intent = new Intent(DemoApp.getApp(), clazz);
+        Intent intent = new Intent(Utils.getApp(), clazz);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        DemoApp.getApp().startActivity(intent);
+        Utils.getApp().startActivity(intent);
     }
 }

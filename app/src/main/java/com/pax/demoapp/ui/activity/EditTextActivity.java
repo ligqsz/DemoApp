@@ -1,6 +1,6 @@
 package com.pax.demoapp.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
@@ -8,9 +8,10 @@ import android.widget.LinearLayout;
 
 import com.pax.demoapp.R;
 import com.pax.demoapp.config.MenuConfig;
+import com.pax.demoapp.template.base.BaseActivity;
 import com.pax.demoapp.ui.adapter.MenuAdapter;
-import com.pax.demoapp.utils.SoftKeyboardUtils;
-import com.pax.demoapp.utils.ToastUtils;
+import com.pax.utils.KeyboardUtils;
+import com.pax.utils.ToastUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +26,7 @@ import static android.view.inputmethod.EditorInfo.IME_ACTION_SEND;
 /**
  * @author ligq
  */
-public class EditTextActivity extends AppCompatActivity implements IActivity, MenuAdapter.MenuAdapterListener {
+public class EditTextActivity extends BaseActivity implements MenuAdapter.MenuAdapterListener {
 
     private List<String> dataMenu;
     private EditText et;
@@ -38,11 +39,11 @@ public class EditTextActivity extends AppCompatActivity implements IActivity, Me
     }
 
     @Override
-    public void initData() {
+    public void init(Bundle savedInstanceState) {
         dataMenu = Arrays.asList(MenuConfig.MENU_EDIT);
+        initView();
     }
 
-    @Override
     public void initView() {
         llEdit = findViewById(R.id.ll_edit_test);
         RecyclerView rv = new RecyclerView(this);
@@ -70,7 +71,7 @@ public class EditTextActivity extends AppCompatActivity implements IActivity, Me
 
     @Override
     public void onItemClick(int position) {
-        SoftKeyboardUtils.hideKeyboard(et);
+        KeyboardUtils.hideSoftInput(et);
         llEdit.removeView(et);
         createEditText();
         switch (position) {

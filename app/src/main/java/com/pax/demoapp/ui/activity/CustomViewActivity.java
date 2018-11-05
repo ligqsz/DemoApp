@@ -1,16 +1,17 @@
 package com.pax.demoapp.ui.activity;
 
+import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
 
-import com.pax.demoapp.DemoApp;
 import com.pax.demoapp.R;
+import com.pax.demoapp.template.base.BaseActivity;
 import com.pax.demoapp.view.PercentView;
+import com.pax.paxokhttp.okhttp.AppUtils;
 
 /**
  * @author ligq
  */
-public class CustomViewActivity extends AppCompatActivity implements IActivity {
+public class CustomViewActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
@@ -18,15 +19,10 @@ public class CustomViewActivity extends AppCompatActivity implements IActivity {
     }
 
     @Override
-    public void initData() {
-
-    }
-
-    @Override
-    public void initView() {
+    public void init(Bundle savedInstanceState) {
         PercentView percentView = findViewById(R.id.percent_view);
         percentView.setOnClickListener(view ->
-                DemoApp.getApp().runInBackGround(() -> {
+                AppUtils.runInBackground(() -> {
                     if (percentView.isStart()) {
                         return;
                     }

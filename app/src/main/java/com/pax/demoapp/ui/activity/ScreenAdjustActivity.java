@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.pax.demoapp.R;
-import com.pax.demoapp.utils.LogUtils;
-import com.pax.demoapp.utils.ScreenUtils;
+import com.pax.utils.LogUtils;
+import com.pax.utils.ScreenUtils;
 
 /**
  * @author ligq

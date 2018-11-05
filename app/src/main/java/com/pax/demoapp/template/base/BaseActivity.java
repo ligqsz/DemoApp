@@ -18,8 +18,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.pax.demoapp.R;
-import com.pax.demoapp.utils.LogUtils;
-import com.pax.demoapp.utils.StatusBarUtil;
+import com.pax.utils.LogUtils;
+import com.pax.utils.StatusBarUtil;
 
 import java.util.Objects;
 
@@ -34,7 +34,7 @@ import java.util.Objects;
 public abstract class BaseActivity extends BasePermissionsActivity {
     protected Toolbar mToolbar;
 
-    public abstract int getContentViewResId();
+    public abstract int getLayoutId();
 
     public abstract void init(Bundle savedInstanceState);
 
@@ -45,7 +45,7 @@ public abstract class BaseActivity extends BasePermissionsActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //设置无ActionBar
         Objects.requireNonNull(getSupportActionBar()).hide();
-        setContentView(getContentViewResId());
+        setContentView(getLayoutId());
         init(savedInstanceState);
     }
 

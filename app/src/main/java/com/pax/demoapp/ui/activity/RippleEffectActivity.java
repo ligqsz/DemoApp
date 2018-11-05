@@ -1,17 +1,18 @@
 package com.pax.demoapp.ui.activity;
 
 import android.content.res.TypedArray;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.widget.Button;
 
 import com.pax.demoapp.R;
+import com.pax.demoapp.template.base.BaseActivity;
 
 /**
  * 触摸反馈动画
  *
  * @author ligq
  */
-public class RippleEffectActivity extends AppCompatActivity implements IActivity {
+public class RippleEffectActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
@@ -19,11 +20,10 @@ public class RippleEffectActivity extends AppCompatActivity implements IActivity
     }
 
     @Override
-    public void initData() {
-
+    public void init(Bundle savedInstanceState) {
+        initView();
     }
 
-    @Override
     public void initView() {
         initButtonSysCode();
     }

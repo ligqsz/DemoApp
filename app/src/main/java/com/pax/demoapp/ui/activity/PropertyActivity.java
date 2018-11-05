@@ -9,8 +9,8 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -21,6 +21,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
 
 import com.pax.demoapp.R;
+import com.pax.demoapp.template.base.BaseActivity;
 import com.pax.demoapp.ui.anim.MyEvaluator;
 import com.pax.demoapp.ui.anim.PropertyBean;
 import com.pax.demoapp.ui.anim.SpeedUpInterpolator;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 /**
  * @author ligq
  */
-public class PropertyActivity extends AppCompatActivity implements IActivity {
+public class PropertyActivity extends BaseActivity {
 
     private TextView viewPuppet;
 
@@ -40,12 +41,11 @@ public class PropertyActivity extends AppCompatActivity implements IActivity {
     }
 
     @Override
-    public void initData() {
-
+    public void init(Bundle savedInstanceState) {
+        initView();
     }
 
     @SuppressWarnings("ConstantConditions")
-    @Override
     public void initView() {
         viewPuppet = findViewById(R.id.view_puppet);
         Toolbar toolbar = findViewById(R.id.toolbar);

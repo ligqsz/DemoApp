@@ -1,6 +1,6 @@
 package com.pax.demoapp.rxjava;
 
-import com.pax.demoapp.utils.RJTestUtils;
+import com.pax.demoapp.utils.RjTestUtils;
 
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.pax.demoapp.rxjava.Utils.print;
+import static com.pax.demoapp.rxjava.PrintUtils.print;
 
 /**
  * @author ligq
@@ -52,7 +52,7 @@ public class RxJavaMergeTest {
     }
 
     /**
-     * @see RJTestUtils#testMergeDelayError()
+     * @see RjTestUtils#testMergeDelayError()
      * 对于merge操作符的任何一个的Observable发射了onError通知终止了，merge操作符生成的Observable也会立即以onError通知终止。
      * 如果你想让它继续发射数据，在最后才报告错误，可以使用mergeDelayError。
      * MergeDelayError的使用有个坑，就是subscribeOn和observeOn的调用问题，
@@ -206,7 +206,7 @@ public class RxJavaMergeTest {
     }
 
     /**
-     * @see RJTestUtils#testSwitchOnNext()
+     * @see RjTestUtils#testSwitchOnNext()
      * switchOnNext 运算符采用一个发出 observables 的observable ，返回的 observable 从最近的 observable 中发射出来。
      * 当一个新的 observable 出现时，旧的被丢弃，而新的值被发出。
      */

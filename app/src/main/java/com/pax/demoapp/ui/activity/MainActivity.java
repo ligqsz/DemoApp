@@ -3,20 +3,20 @@ package com.pax.demoapp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.KeyEvent;
 
 import com.pax.demoapp.R;
 import com.pax.demoapp.config.MenuConfig;
+import com.pax.demoapp.template.base.BaseActivity;
 import com.pax.demoapp.ui.adapter.MenuAdapter;
 import com.pax.demoapp.utils.ActivityUtils;
-import com.pax.demoapp.utils.ToastUtils;
 import com.pax.demoapp.view.dialog.CustomDialog;
 import com.pax.demoapp.view.dialog.DialogUtils;
 import com.pax.paxokhttp.rxbus.RxBus;
 import com.pax.paxokhttp.rxbus.Subscribe;
+import com.pax.utils.ToastUtils;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * @author ligq
  */
-public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuAdapterListener, IActivity {
+public class MainActivity extends BaseActivity implements MenuAdapter.MenuAdapterListener {
 
     private List<String> dataList;
 
@@ -41,12 +41,12 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuA
     }
 
     @Override
-    public void initData() {
+    public void init(Bundle savedInstanceState) {
         dataList = new LinkedList<>();
         dataList.addAll(Arrays.asList(MenuConfig.MENU_MAIN));
+        initView();
     }
 
-    @Override
     public void initView() {
         RxBus.get().register(this);
         RecyclerView rvMenu = findViewById(R.id.rv_menu);

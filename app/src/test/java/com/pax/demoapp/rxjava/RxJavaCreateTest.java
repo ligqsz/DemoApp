@@ -1,7 +1,7 @@
 package com.pax.demoapp.rxjava;
 
 import com.pax.demoapp.ui.model.WeatherRequest;
-import com.pax.demoapp.utils.RJTestUtils;
+import com.pax.demoapp.utils.RjTestUtils;
 
 import org.junit.Test;
 
@@ -21,8 +21,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.pax.demoapp.rxjava.Utils.print;
-import static com.pax.demoapp.rxjava.Utils.printLine;
+import static com.pax.demoapp.rxjava.PrintUtils.print;
+import static com.pax.demoapp.rxjava.PrintUtils.printLine;
 
 /**
  * 创建被观察者的操作符
@@ -232,7 +232,7 @@ public class RxJavaCreateTest {
     }
 
     /**
-     * @see RJTestUtils#testTimer()
+     * @see RjTestUtils#testTimer()
      * Timer操作符创建一个在给定的时间段之后返回一个特殊值的Observable。它在延迟一段给定的时间后发射一个简单的数字0
      */
     @Test
@@ -247,7 +247,7 @@ public class RxJavaCreateTest {
     }
 
     /**
-     * @see RJTestUtils#testInterval()
+     * @see RjTestUtils#testInterval()
      * 该操作符按固定的时间间隔发射一个无限递增的整数序列，它接受一个表示时间间隔的参数和一个表示时间单位的参数，
      * 当然该操作符合Timer一样，是在computation调度器上执行的，若想更新UI需要指定Scheduler 为AndroidSchedulers.mainThread()
      * 通过下面代码就会每隔1秒在tv上追加一个数字，并且会永远执行,如果不想执行,就需要解除订阅disposable.dispose();

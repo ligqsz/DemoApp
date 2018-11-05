@@ -14,13 +14,10 @@ import android.graphics.RectF;
 import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
-import com.pax.demoapp.utils.LogUtils;
-
-import static com.pax.demoapp.DemoApp.TAG;
+import com.pax.utils.LogUtils;
 
 /**
  * @author ligq
@@ -167,8 +164,8 @@ public class PercentView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.i(TAG, "onDraw: .....percent=" + percent);
-        Log.i(TAG, "onDraw: .....tickProgress=" + tickProgress);
+        LogUtils.i("onDraw: .....percent=" + percent);
+        LogUtils.i("onDraw: .....tickProgress=" + tickProgress);
         if (percent == 100) {
             LogUtils.d("onDraw:Finish");
             canvas.drawArc(mRectF, -90, 360, false, mPaint);
@@ -208,7 +205,7 @@ public class PercentView extends View {
 
     public void setTickProgress(float tickProgress) {
         this.tickProgress = tickProgress;
-        Log.i(TAG, "tickProgress: " + tickProgress);
+        LogUtils.i("tickProgress: " + tickProgress);
         postInvalidate();
     }
 

@@ -5,13 +5,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.pax.demoapp.R;
+import com.pax.demoapp.template.base.BaseActivity;
 import com.pax.demoapp.ui.adapter.MyFragmentStateAdapter;
 import com.pax.demoapp.ui.fragment.FragmentView;
 
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @author ligq
  */
-public class PagerActivity extends AppCompatActivity implements IActivity {
+public class PagerActivity extends BaseActivity {
     private ViewPager pager;
     public static final String TITLE = "Title";
     public static final String PAGER_NUM = "pagerNum";
@@ -63,6 +63,11 @@ public class PagerActivity extends AppCompatActivity implements IActivity {
     }
 
     @Override
+    public void init(Bundle savedInstanceState) {
+        initData();
+        initView();
+    }
+
     public void initData() {
         testList = new ArrayList<>();
 
@@ -92,7 +97,6 @@ public class PagerActivity extends AppCompatActivity implements IActivity {
         testList.add(fg4);
     }
 
-    @Override
     public void initView() {
         pager = findViewById(R.id.vp);
         tabLayout = findViewById(R.id.tabLayout);

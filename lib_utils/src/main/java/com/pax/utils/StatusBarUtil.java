@@ -1,4 +1,4 @@
-package com.pax.demoapp.utils;
+package com.pax.utils;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -17,8 +17,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-
-import com.pax.demoapp.R;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

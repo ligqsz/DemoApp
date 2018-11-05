@@ -5,7 +5,7 @@ package com.pax.demoapp.rxjava;
  * @date 2018/10/10
  */
 
-class Utils {
+class PrintUtils {
     static void print(String s) {
         System.out.println(Thread.currentThread().getName() + ":" + s);
     }

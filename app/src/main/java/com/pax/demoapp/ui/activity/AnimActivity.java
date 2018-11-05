@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Window;
 
 import com.pax.demoapp.R;
 import com.pax.demoapp.config.MenuConfig;
+import com.pax.demoapp.template.base.BaseActivity;
 import com.pax.demoapp.ui.adapter.MenuAdapter;
 import com.pax.demoapp.utils.ActivityUtils;
 
@@ -20,7 +19,7 @@ import java.util.List;
 /**
  * @author ligq
  */
-public class AnimActivity extends AppCompatActivity implements IActivity, MenuAdapter.MenuAdapterListener {
+public class AnimActivity extends BaseActivity implements MenuAdapter.MenuAdapterListener {
 
     private List<String> menuList;
 
@@ -35,11 +34,11 @@ public class AnimActivity extends AppCompatActivity implements IActivity, MenuAd
     }
 
     @Override
-    public void initData() {
+    public void init(Bundle savedInstanceState) {
         menuList = Arrays.asList(MenuConfig.MENU_ANIM);
+        initView();
     }
 
-    @Override
     public void initView() {
         RecyclerView animMenu = findViewById(R.id.anim_menu);
         animMenu.setLayoutManager(new GridLayoutManager(this, 2));

@@ -17,7 +17,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.observables.GroupedObservable;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.pax.demoapp.rxjava.Utils.print;
+import static com.pax.demoapp.rxjava.PrintUtils.print;
 
 
 /**
@@ -41,7 +41,7 @@ public class RxJavaTransformTest {
                         List<Integer> list = new ArrayList<>();
                         char[] chars = s.toCharArray();
                         for (char aChar : chars) {
-                            Integer integer = Utils.parIntSafe(aChar);
+                            Integer integer = PrintUtils.parIntSafe(aChar);
                             if (integer != -1) {
                                 list.add(integer);
                             }

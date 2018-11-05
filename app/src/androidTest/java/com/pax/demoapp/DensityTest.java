@@ -6,7 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.Utils;
+import com.pax.utils.Utils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,9 +42,9 @@ public class DensityTest {
      */
     @Test
     public void testMd() {
-        DisplayMetrics appDm = DemoApp.getApp().getResources().getDisplayMetrics();
+        DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
         DisplayMetrics sysDm = Resources.getSystem().getDisplayMetrics();
-        DisplayMetrics actDm = DemoApp.getApp().getCurrentActivity().getResources().getDisplayMetrics();
+        DisplayMetrics actDm = Utils.getTopActivityOrApp().getResources().getDisplayMetrics();
         //这里以宽度为360dp为例,appDm.widthPixels为屏幕宽度px
         //1.计算屏幕density,注意竖屏用其高度appDm.heightPixels
         actDm.density = actDm.widthPixels / 360;
@@ -62,9 +62,9 @@ public class DensityTest {
         // 系统的屏幕尺寸
         DisplayMetrics sysDm = Resources.getSystem().getDisplayMetrics();
         // app整体的屏幕尺寸
-        DisplayMetrics appDm = DemoApp.getApp().getResources().getDisplayMetrics();
+        DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
         // app整体的屏幕尺寸
-        DisplayMetrics actDm = DemoApp.getApp().getCurrentActivity().getResources().getDisplayMetrics();
+        DisplayMetrics actDm = Utils.getTopActivityOrApp().getResources().getDisplayMetrics();
     }
 
     public static void cancelAdaptScreen(final Activity activity) {
@@ -99,15 +99,15 @@ public class DensityTest {
 
     public void showToast() {
         //取消适配
-        cancelAdaptScreen(DemoApp.getApp().getCurrentActivity());
+        cancelAdaptScreen((Activity) Utils.getTopActivityOrApp());
         //弹出Toast
-        Toast.makeText(DemoApp.getApp().getCurrentActivity(), "点击了第一个内容", Toast.LENGTH_SHORT).show();
+        Toast.makeText(Utils.getTopActivityOrApp(), "点击了第一个内容", Toast.LENGTH_SHORT).show();
         //重新适配
-        restoreAdaptScreen(DemoApp.getApp().getCurrentActivity(), true, 720);
+        restoreAdaptScreen((Activity) Utils.getTopActivityOrApp(), true, 720);
     }
 
     public void setOverScrollMode(int mode) {
 //        super.setOverScrollMode(mode);
-        restoreAdaptScreen(DemoApp.getApp().getCurrentActivity(), true, 720);
+        restoreAdaptScreen((Activity) Utils.getTopActivityOrApp(), true, 720);
     }
 }

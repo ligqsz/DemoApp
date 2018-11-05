@@ -15,8 +15,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 
-import static com.pax.demoapp.rxjava.Utils.parIntSafe;
-import static com.pax.demoapp.rxjava.Utils.print;
+import static com.pax.demoapp.rxjava.PrintUtils.parIntSafe;
+import static com.pax.demoapp.rxjava.PrintUtils.print;
 
 /**
  * @author ligq

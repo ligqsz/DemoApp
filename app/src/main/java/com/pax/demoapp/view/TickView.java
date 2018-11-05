@@ -16,13 +16,11 @@ import android.graphics.RectF;
 import android.support.annotation.Keep;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import com.pax.demoapp.R;
-
-import static com.pax.demoapp.DemoApp.TAG;
+import com.pax.utils.LogUtils;
 
 /**
  * @author ligq
@@ -336,13 +334,13 @@ public class TickView extends View {
     @Keep
     public void setCircleRadius(int circleRadius) {
         this.circleRadius = circleRadius;
-        Log.i(TAG, "setCircleRadius: " + circleRadius);
+        LogUtils.i("setCircleRadius: " + circleRadius);
         invalidate();
     }
 
     private void setTickProgress(float tickProgress) {
         this.tickProgress = tickProgress;
-        Log.i(TAG, "setTickProgress: " + tickProgress);
+        LogUtils.i("setTickProgress: " + tickProgress);
         postInvalidate();
     }
 

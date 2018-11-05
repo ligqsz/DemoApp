@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import com.blankj.utilcode.util.LogUtils;
 import com.pax.demoapp.R;
 import com.pax.demoapp.template.base.BaseActivity;
-import com.pax.demoapp.utils.StatusBarUtil;
+import com.pax.utils.StatusBarUtil;
 
 import java.util.Random;
 
@@ -17,7 +17,7 @@ import java.util.Random;
 public class TestBaseActivity extends BaseActivity {
 
     @Override
-    public int getContentViewResId() {
+    public int getLayoutId() {
         return R.layout.activity_test_base;
     }
 

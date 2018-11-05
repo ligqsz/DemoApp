@@ -2,21 +2,22 @@
 package com.pax.demoapp.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pax.demoapp.R;
+import com.pax.demoapp.template.base.BaseActivity;
 import com.pax.demoapp.utils.OtherUtils;
-import com.pax.demoapp.utils.ToastUtils;
 import com.pax.demoapp.view.JustifyTextView;
+import com.pax.utils.ToastUtils;
 
 /**
  * @author ligq
  */
-public class ToolBarActivity extends AppCompatActivity implements IActivity {
+public class ToolBarActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
@@ -24,12 +25,11 @@ public class ToolBarActivity extends AppCompatActivity implements IActivity {
     }
 
     @Override
-    public void initData() {
-        // do nothing
+    public void init(Bundle savedInstanceState) {
+        initView();
     }
 
     @SuppressLint("SetTextI18n")
-    @Override
     public void initView() {
         initToolBar();
         Button btTest = findViewById(R.id.bt_test);

@@ -2,7 +2,7 @@ package com.pax.demoapp.rxjava;
 
 import android.os.SystemClock;
 
-import com.pax.demoapp.utils.RJTestUtils;
+import com.pax.demoapp.utils.RjTestUtils;
 
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.pax.demoapp.rxjava.Utils.print;
+import static com.pax.demoapp.rxjava.PrintUtils.print;
 
 /**
  * @author ligq
@@ -177,7 +177,7 @@ public class RxJavaFilterTest {
      * skip还有两个重载方法.skip(long time, TimeUnit unit)默认是在computation调度器上执行，
      * 如果要有更新UI操作需要通过observeOn方法指定为AndroidSchedulers.mainThread()，
      * 当然还有一个重载方法skip(long time, TimeUnit unit, Scheduler scheduler)可以指定调度器。
-     * 注意的一点是这两个重载方法的第一个参数不是跳过的数据数量，指的是时间。{@link RJTestUtils#testSkip()}
+     * 注意的一点是这两个重载方法的第一个参数不是跳过的数据数量，指的是时间。{@link RjTestUtils#testSkip()}
      */
     @Test
     public void testSkip() {
@@ -253,7 +253,7 @@ public class RxJavaFilterTest {
     }
 
     /**
-     * @see RJTestUtils#testDebounce()
+     * @see RjTestUtils#testDebounce()
      * 当一个事件发送出来之后，在约定时间内没有再次发送这个事件，则发射这个事件，
      * 如果再次触发了，则重新计算时间。
      * 应用场景:在Edittext上添加监听，当里面输入的内容变化后进行搜索。

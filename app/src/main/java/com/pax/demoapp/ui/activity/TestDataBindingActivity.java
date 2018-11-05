@@ -7,12 +7,16 @@ import android.view.View;
 
 import com.pax.demoapp.R;
 import com.pax.demoapp.SchoolBinding;
-import com.pax.demoapp.db.greendao.bean.School;
-import com.pax.demoapp.utils.LogUtils;
+import com.pax.demoapp.ui.model.School;
+import com.pax.utils.LogUtils;
 
 import java.util.Random;
 
 /**
+ * android DataBinding Test
+ * detail refer to the project <a href="https://github.com/LyndonChin/MasteringAndroidDataBinding">
+ * and <a href = "https://juejin.im/post/5b02cf8c6fb9a07aa632146d">
+ *
  * @author ligq
  */
 public class TestDataBindingActivity extends AppCompatActivity {
@@ -24,10 +28,13 @@ public class TestDataBindingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_test_data_binding);
         testSchool();
+//        binding.btTest.setText("");
     }
 
     private void testSchool() {
-        School school = new School(2L, "深圳" + new Random().nextInt(100), "张三" + new Random().nextInt(100));
+//        ObservableField<String> name = new ObservableField<>();
+//        name.set("深圳" + new Random().nextInt(100));
+        School school = new School("深圳" + new Random().nextInt(100), "张三" + new Random().nextInt(100));
         binding.setSchool(school);
     }
 

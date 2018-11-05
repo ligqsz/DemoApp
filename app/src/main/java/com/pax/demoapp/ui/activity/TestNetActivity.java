@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,13 +17,14 @@ import com.blankj.utilcode.util.NetworkUtils;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.pax.demoapp.R;
+import com.pax.demoapp.template.base.BaseActivity;
 import com.pax.demoapp.ui.model.WeatherApi;
 import com.pax.demoapp.ui.model.WeatherRequest;
 import com.pax.demoapp.ui.model.WeatherResponse;
-import com.pax.demoapp.utils.LogUtils;
 import com.pax.paxokhttp.okhttp.RetrofitHelper;
 import com.pax.paxokhttp.okhttp.RxHelper;
 import com.pax.paxokhttp.rxbus.RxBus;
+import com.pax.utils.LogUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +42,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author ligq
  */
 @SuppressWarnings({"Convert2Lambda", "RedundantThrows"})
-public class TestNetActivity extends AppCompatActivity implements IActivity {
+public class TestNetActivity extends BaseActivity {
 
     private EditText city;
     private TextView requestResult;
@@ -60,6 +60,11 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
     }
 
     @Override
+    public void init(Bundle savedInstanceState) {
+        initData();
+        initView();
+    }
+
     public void initData() {
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
@@ -168,7 +173,6 @@ public class TestNetActivity extends AppCompatActivity implements IActivity {
     }
 
     @SuppressLint("CheckResult")
-    @Override
     public void initView() {
         RxBus.get().send("I'm from TestNetActivity");
         requestResult = findViewById(R.id.request_result);

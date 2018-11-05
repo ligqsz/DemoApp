@@ -11,8 +11,8 @@ import android.widget.LinearLayout;
 
 import com.jakewharton.rxbinding2.view.RxView;
 import com.pax.demoapp.config.MenuConfig;
-import com.pax.demoapp.utils.LogUtils;
-import com.pax.demoapp.utils.RJTestUtils;
+import com.pax.demoapp.utils.RjTestUtils;
+import com.pax.utils.LogUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -97,34 +97,34 @@ public class RxJavaActivity extends AppCompatActivity {
     private void click(Integer item) {
         switch (item) {
             case 0:
-                RJTestUtils.testTimer();
+                RjTestUtils.testTimer();
                 break;
             case 1:
-                RJTestUtils.testInterval();
+                RjTestUtils.testInterval();
                 break;
             case 2:
-//                RJTestUtils.testSkip();
+//                RjTestUtils.testSkip();
                 break;
             case 3:
-                RJTestUtils.testDebounce();
+                RjTestUtils.testDebounce();
                 break;
             case 4:
-                RJTestUtils.testMergeDelayError();
+                RjTestUtils.testMergeDelayError();
                 break;
             case 5:
-                RJTestUtils.testSwitchOnNext();
+                RjTestUtils.testSwitchOnNext();
                 break;
             case 6:
-                RJTestUtils.testDelay();
+                RjTestUtils.testDelay();
                 break;
             case 7:
-                RJTestUtils.testTimeInterval();
+                RjTestUtils.testTimeInterval();
                 break;
             case 8:
-                RJTestUtils.testTimestamp();
+                RjTestUtils.testTimestamp();
                 break;
             case 9:
-                RJTestUtils.testSubscribeOn(layout);
+                RjTestUtils.testSubscribeOn(layout);
                 break;
             default:
                 break;
@@ -134,6 +134,6 @@ public class RxJavaActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        RJTestUtils.disposable();
+        RjTestUtils.disposable();
     }
 }

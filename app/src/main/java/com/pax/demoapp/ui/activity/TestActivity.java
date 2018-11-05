@@ -2,9 +2,9 @@ package com.pax.demoapp.ui.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.annotation.StringDef;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,10 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.pax.demoapp.DemoApp;
 import com.pax.demoapp.R;
-import com.pax.demoapp.utils.LogUtils;
-import com.pax.demoapp.utils.ScreenUtils;
+import com.pax.demoapp.template.base.BaseActivity;
+import com.pax.utils.LogUtils;
+import com.pax.utils.ScreenUtils;
+import com.pax.utils.Utils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -23,9 +24,8 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * @author ligq
  */
-public class TestActivity extends AppCompatActivity implements IActivity {
+public class TestActivity extends BaseActivity {
 
-    private Button btShowImg;
     private ImageView ivImg;
 
     @Override
@@ -34,6 +34,12 @@ public class TestActivity extends AppCompatActivity implements IActivity {
     }
 
     @Override
+    public void init(Bundle savedInstanceState) {
+        initData();
+        initView();
+    }
+
+
     public void initData() {
         setCurrentDay(MONDAY | SATURDAY & FRIDAY);
         setState(SUCCESS);
@@ -42,14 +48,14 @@ public class TestActivity extends AppCompatActivity implements IActivity {
         LogUtils.d("today:" + today);
     }
 
-    @Override
+
     public void initView() {
-        btShowImg = findViewById(R.id.bt_show_img);
+        Button btShowImg = findViewById(R.id.bt_show_img);
         ivImg = findViewById(R.id.iv_img);
 
         btShowImg.setOnClickListener(v -> {
-            TextView view = new TextView(DemoApp.getApp());
-            LinearLayout ll = new LinearLayout(DemoApp.getApp());
+            TextView view = new TextView(Utils.getApp());
+            LinearLayout ll = new LinearLayout(Utils.getApp());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
                     , ViewGroup.LayoutParams.WRAP_CONTENT);
             ll.setLayoutParams(params);

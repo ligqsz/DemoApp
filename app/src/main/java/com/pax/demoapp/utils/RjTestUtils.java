@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.pax.demoapp.DemoApp;
 import com.pax.demoapp.R;
+import com.pax.utils.LogUtils;
+import com.pax.utils.ToastUtils;
+import com.pax.utils.Utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,9 +33,9 @@ import io.reactivex.schedulers.Timed;
  * @date 2018/10/15
  */
 @SuppressWarnings({"AlibabaClassNamingShouldBeCamel", "Convert2Lambda", "RedundantThrows", "Anonymous2MethodRef"})
-public class RJTestUtils {
+public class RjTestUtils {
     private static Disposable disposable;
-    private static final String TAG = RJTestUtils.class.getSimpleName();
+    private static final String TAG = RjTestUtils.class.getSimpleName();
     private static final String[] STRINGS = {"也许当初忙着微笑和哭泣", "忙着追逐天空中的流星",
             "人理所当然的忘记", "是谁风里雨里一直默默守护在原地"};
 
@@ -197,7 +199,7 @@ public class RJTestUtils {
         disposable = Observable.create(new ObservableOnSubscribe<Drawable>() {
             @Override
             public void subscribe(ObservableEmitter<Drawable> emitter) throws Exception {
-                emitter.onNext(ContextCompat.getDrawable(DemoApp.getApp(), R.mipmap.qq));
+                emitter.onNext(ContextCompat.getDrawable(Utils.getApp(), R.mipmap.qq));
                 emitter.onComplete();
             }
         })

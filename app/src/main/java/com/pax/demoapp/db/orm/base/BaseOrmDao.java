@@ -3,8 +3,8 @@ package com.pax.demoapp.db.orm.base;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
-import com.pax.demoapp.DemoApp;
-import com.pax.demoapp.utils.LogUtils;
+import com.pax.utils.LogUtils;
+import com.pax.utils.Utils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public abstract class BaseOrmDao<T> {
     protected RuntimeExceptionDao<T, Integer> dataDao = null;
 
     public BaseOrmDao() {
-        ormHelper = BaseOrmHelper.getInstance(DemoApp.getApp());
+        ormHelper = BaseOrmHelper.getInstance(Utils.getApp());
     }
 
     public boolean insertData(T t) {

@@ -30,7 +30,7 @@
         <activity android:name=".ui.activity.EditTextActivity" />
         <activity
             android:name=".ui.activity.ToolBarActivity"
-            android:theme="@style/AppThemeNoActionBar" />
+            android:theme="@style/AppThemeToolBar" />
         <activity android:name=".ui.activity.OrmLiteActivity" />
         <activity android:name=".ui.activity.OrmResultActivity" />
         <activity android:name=".ui.activity.GreenDaoActivity" />
@@ -52,7 +52,7 @@
             android:theme="@style/TransactionTheme" />
         <activity
             android:name=".ui.activity.PropertyActivity"
-            android:theme="@style/AppThemeNoActionBar" />
+            android:theme="@style/AppThemeToolBar" />
         <activity
             android:name=".ui.activity.RippleEffectActivity"
             android:theme="@style/AppTheme.Ripple" />
@@ -64,7 +64,7 @@
         <activity android:name=".ui.activity.RxJavaActivity" />
         <activity android:name=".ui.activity.TestBaseActivity" />
         <activity android:name=".ui.activity.ScreenAdjustActivity" />
-        <activity android:name=".ui.activity.TestDataBindingActivity"></activity>
+        <activity android:name=".ui.activity.TestDataBindingActivity"/>
     </application>
 
 </manifest>

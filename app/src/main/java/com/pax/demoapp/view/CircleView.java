@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.pax.demoapp.R;
-import com.pax.demoapp.utils.DensityUtils;
+import com.pax.utils.ConvertUtils;
 
 
 /**
@@ -48,7 +48,7 @@ public class CircleView extends View {
             TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CircleView);
             circleColor = ta.getColor(R.styleable.CircleView_circle_color, ContextCompat.getColor(context, R.color.red));
             textColor = ta.getColor(R.styleable.CircleView_text_color, ContextCompat.getColor(context, R.color.white));
-            textSize = ta.getDimension(R.styleable.CircleView_text_size, DensityUtils.dp2px(16));
+            textSize = ta.getDimension(R.styleable.CircleView_text_size, ConvertUtils.dp2px(16));
             textStr = ta.getString(R.styleable.CircleView_text_str);
             ta.recycle();
         }

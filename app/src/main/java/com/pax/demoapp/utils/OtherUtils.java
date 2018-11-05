@@ -1,10 +1,12 @@
 package com.pax.demoapp.utils;
 
+import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
-import com.pax.demoapp.DemoApp;
 import com.pax.demoapp.db.orm.dao.StudentDao;
+import com.pax.utils.LogUtils;
+import com.pax.utils.Utils;
 
 import java.util.Random;
 
@@ -46,7 +48,7 @@ public class OtherUtils {
     public static String getMeta(String metaKey) {
         ApplicationInfo appInfo;
         try {
-            DemoApp app = DemoApp.getApp();
+            Application app = Utils.getApp();
             appInfo = app.getPackageManager()
                     .getApplicationInfo(app.getPackageName(), PackageManager.GET_META_DATA);
             return appInfo.metaData.getString(metaKey);
@@ -59,7 +61,7 @@ public class OtherUtils {
     public static int getMetaInt(String metaKey) {
         ApplicationInfo appInfo;
         try {
-            DemoApp app = DemoApp.getApp();
+            Application app = Utils.getApp();
             appInfo = app.getPackageManager()
                     .getApplicationInfo(app.getPackageName(), PackageManager.GET_META_DATA);
             return appInfo.metaData.getInt(metaKey);
