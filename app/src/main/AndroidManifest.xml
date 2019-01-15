@@ -64,7 +64,8 @@
         <activity android:name=".ui.activity.RxJavaActivity" />
         <activity android:name=".ui.activity.TestBaseActivity" />
         <activity android:name=".ui.activity.ScreenAdjustActivity" />
-        <activity android:name=".ui.activity.TestDataBindingActivity"/>
+        <activity android:name=".ui.activity.TestDataBindingActivity" />
+        <activity android:name=".ui.activity.RecyclerViewActivity"></activity>
     </application>
 
 </manifest>

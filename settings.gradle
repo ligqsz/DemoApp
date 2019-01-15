@@ -1,1 +1,1 @@
-include ':app', ':JDimensUtils', ':paxokhttp', ':lib_utils'
+include ':app', ':JDimensUtils', ':paxokhttp', ':lib_utils', 'mvvm'

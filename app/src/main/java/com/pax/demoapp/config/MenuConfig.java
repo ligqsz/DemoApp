@@ -9,7 +9,7 @@ public class MenuConfig {
     public static final String[] MENU_MAIN = {"弹出按钮框", "弹出ProgressBar", "跳转pager界面"
             , "测试改变软键盘Enter键", "ToolBarActivity", "OrmLite Demo", "Green Dao Demo"
             , "custom view demo", "动画效果", "test", "Okhttp+Retrofit+RxJava请求测试", "RxJava测试"
-            , "TestBaseActivity", "屏幕适配", "Data binding"};
+            , "TestBaseActivity", "屏幕适配", "Data binding", "RecyclerView"};
 
     public static final String[] MENU_EDIT = {"actionDone", "actionGo", "actionNext"
             , "actionNone", "actionSearch", "actionSend"};

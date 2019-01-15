@@ -12,6 +12,8 @@ import com.pax.utils.StatusBarUtil;
 import java.util.Random;
 
 /**
+ * can also refer to <a href = "https://github.com/xiewenfeng/statusbartextcolorchange"/>
+ *
  * @author ligq
  */
 public class TestBaseActivity extends BaseActivity {

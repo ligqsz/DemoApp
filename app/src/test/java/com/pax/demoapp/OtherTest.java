@@ -1,5 +1,7 @@
 package com.pax.demoapp;
 
+import com.pax.demoapp.rxjava.PrintUtils;
+
 import org.junit.Test;
 
 import java.util.Random;
@@ -24,5 +26,15 @@ public class OtherTest {
             sb.append(Integer.toHexString(temp));
         }
         return sb.toString();
+    }
+
+    @Test
+    public void test() {
+        int a = 1;
+        int b = 2;
+        int ret = a | b;
+        PrintUtils.print("a | b:" + ret);
+        PrintUtils.print("ret^a:" + (ret ^ a));
+
     }
 }
