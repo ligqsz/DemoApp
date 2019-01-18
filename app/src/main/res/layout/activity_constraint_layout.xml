@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.ConstraintLayoutActivity">
+
+    <Button
+        android:id="@+id/btn_a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--layout_goneMarginLeft:gone时左边距-->
+    <Button
+        android:id="@+id/btn_b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="B"
+        app:layout_constraintBaseline_toBaselineOf="@id/btn_a"
+        app:layout_constraintLeft_toRightOf="@id/btn_a"
+        app:layout_goneMarginLeft="40dp" />
+
+    <Button
+        android:id="@+id/btn_x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X"
+        app:layout_constraintBaseline_toBaselineOf="@id/btn_a"
+        app:layout_constraintLeft_toRightOf="@id/btn_b"
+        app:layout_goneMarginLeft="40dp" />
+
+    <!--<Button-->
+        <!--android:id="@+id/btn_y"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Y"-->
+        <!--app:layout_constraintBaseline_toBaselineOf="@id/btn_a"-->
+        <!--app:layout_constraintLeft_toRightOf="@id/btn_x"-->
+        <!--app:layout_goneMarginLeft="40dp" />-->
+
+    <!--圆形布局 占比属性layout_constraintHorizontal_bias-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_show_c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="D"
+            app:layout_constraintCircle="@id/btn_c"
+            app:layout_constraintCircleAngle="0"
+            app:layout_constraintCircleRadius="100dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="D"
+            app:layout_constraintCircle="@id/btn_c"
+            app:layout_constraintCircleAngle="0"
+            app:layout_constraintCircleRadius="100dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="D"
+            app:layout_constraintCircle="@id/btn_c"
+            app:layout_constraintCircleAngle="60"
+            app:layout_constraintCircleRadius="100dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="D"
+            app:layout_constraintCircle="@id/btn_c"
+            app:layout_constraintCircleAngle="120"
+            app:layout_constraintCircleRadius="100dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="D"
+            app:layout_constraintCircle="@id/btn_c"
+            app:layout_constraintCircleAngle="180"
+            app:layout_constraintCircleRadius="100dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="D"
+            app:layout_constraintCircle="@id/btn_c"
+            app:layout_constraintCircleAngle="240"
+            app:layout_constraintCircleRadius="100dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="D"
+            app:layout_constraintCircle="@id/btn_c"
+            app:layout_constraintCircleAngle="300"
+            app:layout_constraintCircleRadius="100dp" />
+    </android.support.constraint.ConstraintLayout>
+
+    <!--设置子控件的最大最小尺寸-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_show_e"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="60dp"
+        android:maxHeight="50dp"
+        android:visibility="gone"
+        app:layout_constrainedHeight="true"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_e"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E" />
+    </android.support.constraint.ConstraintLayout>
+
+    <!--宽高比 app:layout_constraintDimensionRatio="W|H,1:10",设置最大最小尺寸-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_max="120dp"
+        app:layout_constraintHeight_min="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="100dp"
+        app:layout_constraintWidth_min="30dp">
+
+        <Button
+            android:id="@+id/btn_f"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="F"
+            app:layout_constraintDimensionRatio="1:1" />
+    </android.support.constraint.ConstraintLayout>
+
+    <!--chain的使用-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_show_chain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_g"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="G"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_h"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_i"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/btn_h"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--设置宽高比 app:layout_constraintDimensionRatio="1:1"-->
+        <Button
+            android:id="@+id/btn_h"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="H"
+            app:layout_constraintBottom_toTopOf="@id/btn_j"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toRightOf="@id/btn_g"
+            app:layout_constraintRight_toLeftOf="@id/btn_i"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <Button
+            android:id="@+id/btn_j"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="J"
+            android:visibility="visible"
+            app:layout_constraintLeft_toLeftOf="@id/btn_h"
+            app:layout_constraintRight_toRightOf="@id/btn_h"
+            app:layout_constraintTop_toBottomOf="@id/btn_h" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

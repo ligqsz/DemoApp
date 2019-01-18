@@ -137,6 +137,12 @@ public class MainActivity extends BaseActivity implements MenuAdapter.MenuAdapte
             case 14:
                 ActivityUtils.jumpActivity(TestDataBindingActivity.class);
                 break;
+            case 15:
+                ActivityUtils.jumpActivity(RecyclerViewActivity.class);
+                break;
+            case 16:
+                ActivityUtils.jumpActivity(ConstraintLayoutActivity.class);
+                break;
             default:
                 break;
         }
